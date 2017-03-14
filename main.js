@@ -67,12 +67,12 @@ $('#inputs').on('input', function() {
 });
 
 /*****
-angel_investment
+angel_investment_note
 total_note_investment
 note_discount
 note_cap
 
-angel_investment
+angel_investment_vc
 vc_investment
 optpool_target: option pool %
 pre_valuation
@@ -89,6 +89,23 @@ vcequity_target: VC equity ownership %
 
 // Optimization Function
 // Goal seeking method for calculating number of options we need to issue to in order to achieve our option pool and VC equity target
+
+function calc_table() {
+  com_shares = calc_com_shares(ss.getRange(16, 2).getValue(), ss.getRange(17, 2).getValue());
+  ss.getRange(20, 5).setValue(com_shares);
+  
+  price_per_share = calc_price_per_share(pre_valuation, fd_pre_shares, unallocated_pre_opt, ss.getRange(21, 5).getValue(), ss.getRange(23, 5).getValue());
+  note_price_per_share = calc_note_price_per_share(note_cap, fd_pre_shares, unallocated_pre_opt, ss.getRange(21, 5).getValue());
+  total_vc_shares = calc_vc_shares(vc_investment, price_per_share);
+  total_note_shares = calc_note_shares(total_note_investment, note_price_per_share);
+
+  ss.getRange(24, 2).setValue(price_per_share);
+  ss.getRange(23, 4).setValue(note_price_per_share);
+  ss.getRange(22, 5).setValue(total_vc_shares);
+  ss.getRange(23, 5).setValue(total_note_shares);
+  
+}
+
 function optimize(optpool_shares, optpool_target, vcequity_target) {
   pre_money_shares = 5000000
   optpool_shares = 0
@@ -101,6 +118,7 @@ function optimize(optpool_shares, optpool_target, vcequity_target) {
   var i = 0;
   var direction = 1;
   while (true) {
+    calc_table();
     ss.getRange(21, 5).setValue(optpool_shares);
     optpool_percentage = ss.getRange(21, 6).getValue();
     newtotaldiff = Math.abs(optpool_target - optpool_percentage); //0.05
@@ -147,6 +165,10 @@ function calc_ownership_per(fd_post_shares, shares) {
   return shares / fd_post_shares;
 }
 
-function price_per_share(pre_valuation, fd_pre_shares, unallocated_pre_opt, optpool_shares, total_note_shares) {
+function calc_price_per_share(pre_valuation, fd_pre_shares, unallocated_pre_opt, optpool_shares, total_note_shares) {
   return pre_valuation / (fd_pre_shares - unallocated_pre_opt + optpool_shares + total_note_shares)
+}
+
+function calc_note_price_per_share(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shares) {
+  return note_cap / (fd_pre_shares - unallocated_pre_opt + optpool_shares)
 }
