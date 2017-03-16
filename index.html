@@ -18,13 +18,13 @@
 				<th>%</th>
 			</tr>
 			<tr>
-				<td>Option Pool</td>
+				<td>Common</td>
 				<td>90000</td>
 				<td>90000</td>
 				<td>90000</td>
 			</tr>
 			<tr>
-				<td>Common</td>
+				<td>Option Pool</td>
 				<td>90000</td>
 				<td>90000</td>
 				<td>90000</td>
@@ -57,26 +57,26 @@
 		<p class="preVal">Pre Valuation:<span></span></p>
 		<p class="postVal">Post Valuation:<span></span></p>
 		<p class="fdPostShares">Total FD Shares:<span></span></p>
-		<p class="optionPool">Options:<span></span></p>
+		<p class="optionShares">Options:<span></span></p>
 		<p class="sharePriceCom">Share Price:<span></span></p>
 		</div>
 
 		<form action="" id="initialState">
 			<legend>VC Investment<br> Input the initial state of the company here.</legend>
-			your investment: <input class="angelInvestment" type="number" placeholder="0">
-			investment: <input type="number" placeholder="5000000">
-			post-option pool: <input type="number" placeholder="0.1">
-			post valuation: <input type="number" placeholder="20000000">
-			FD premoney shares<input type="number">
-			unallocated shares<input type="number">
+			your investment: <input name="yourInvestment_VC" type="text" placeholder="0">
+			total investment: <input name="totInvestment_VC" type="number" placeholder="5000000">
+			post-option pool: <input name="postOptionPercent" type="number" placeholder="0.1">
+			post valuation: <input name="valuation" type="number" placeholder="20000000">
+			FD premoney shares<input name="fdPreShares" type="number">
+			unallocated shares<input name="unallocOptionShares" type="number">
 		</form>
 
 		<form action="" class="convertibleNote">
 			<legend>SAFE<br> Input the initial state of the company here.</legend>
-			your investment: <input type="number">
-			total note: <input type="number">
-			discount: <input type="number">
-			cap: <input type="number">
+			your investment: <input name="yourInvestment_note" type="number">
+			total note: <input name="totalInvestment_note" type="number">
+			discount: <input name="noteDiscount" type="number">
+			cap: <input name="noteCap" type="number">
 		</form>
 
 		<label for="addNew"></label>
@@ -85,7 +85,7 @@
 	</div>
 
 	<!-- JQuery, feel free to replace -->
-	<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 	<script src="main.js"></script>
 
 </body>

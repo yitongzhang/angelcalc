@@ -29,40 +29,68 @@ function removeComma(x) {
 
 // Calculate
 $('#inputs').on('input', function() {
-  // Call function
-  var angelInvestment = parseFloat($('inputs[name$="angelInvestment"]').val());
-  var i = parseFloat($('#inputs .noteInterest input').val());
-  var discount = parseFloat($('#inputs .noteDiscount input').val());
-  var cap = parseFloat($('#inputs .noteCap input').val());  
-  var dur = parseFloat($('#inputs .durationToConvert input').val());
-  var val = parseFloat($('#inputs .pricedValuation input').val());
-  var result = amount*Math.pow((1+(i/100)),(dur/12))/(Math.min(cap, val)*(1-(discount/100)))*100;
-  // Compute Final Result
-  $('#result .resultFinal').html(parseFloat(result).toFixed(2)+"%");
-  
-  // Compute Details
-  var debtAmount = amount*Math.pow((1+(i/100)),(dur/12));
-  var finalValuation = Math.min(cap, val)*(1-(discount/100));
-  $('#result .result-details table tr:nth-child(2) td:nth-child(2)').html(parseFloat(debtAmount).toFixed(0));
-  $('#result .result-details table tr:nth-child(3) td:nth-child(2)').html(parseFloat(finalValuation).toFixed(0));
-  
-  // Sensitivity Analysis
-  for (var j = 0; j < 5; j++) {
-    // Duration Header
-    $('#result .result-sensitivity table tr:nth-child(1) td:nth-child('+(j+2)+')').html(parseFloat(dur+3*(j-1)).toFixed(0)); 
-  }
+  // // Define initial variables
+  // var yourInvestment_VC = parseFloat($('input[name="angelInvestment"]').val());
+  // var totInvestment_VC = parseFloat($('input[name="totInvestment_VC"]').val());
+  // var postOptionPercent = parseFloat($('input[name="postOptionPercent"]').val());
+  // var valuation = parseFloat($('input[name="valuation"]').val());
+  // var fdPreShares = parseFloat($('input[name="fdPreShares"]').val());
+  // var unallocOptionShares = parseFloat($('input[name="unallocOptionShares"]').val());
 
-  // Valuation Sensitivity
-  var valSens = parseFloat(val)*0.5;
-  var resultSens = 0;
-  for (var k = 0; k < 5; k++) {
-    $('#result .result-sensitivity table tr:nth-child('+(k+3)+') td:nth-child(1)').html(parseFloat(val+valSens*(k-1)).toFixed(0));
-    for (var l = 0; l < 5; l++) {
-      resultSens = amount*Math.pow((1+(i/100)),((dur+3*(l-1))/12))/(Math.min(cap, val+valSens*(k-1))*(1-(discount/100)))*100;
-      $('#result .result-sensitivity table tr:nth-child('+(k+3)+') td:nth-child('+(l+2)+')').html(parseFloat(resultSens).toFixed(2)+'%');       
-    }
-  }
+  // // Define note variables
+  // var yourInvestment_note = parseFloat($('input[name="yourInvestment_note"]').val());
+  // var totalInvestment_notevaluation = parseFloat($('input[name="totalInvestment_note"]').val());
+  // var noteDiscount = parseFloat($('input[name="noteDiscount"]').val());
+  // var noteCap = parseFloat($('input[name="noteCap"]').val());
+
+  // // Compute Variables
+  // var optionShares = 0;
+  // var totNoteShares = 0;
+  // var commonShares = (fdPreShares - unallocOptionShares);
+  // var preValuation = (valuation - totInvestment_VC);
+  // var postValuation = valuation;
+
+  // var PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares); // PPS = price per share
+  // var PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
+
+  // var vcShares = calc_vcShares(totInvestment_VC, PPS_VC);
+  // var fdPostShares = commonShares + vcShares + totNoteShares + optionShares;
+  // var commonPercent = calc_percentage(fdPostShares, commonShares);
+  // var vcPercent = calc_percentage(fdPostShares, vcShares);
+  // var totNotePercent = calc_percentage(fdPostShares, totNoteShares);
+  // var optionPercent = calc_percentage(fdPostShares, optionShares);
+
+  // Optimization
+  optimize();
+
+  // // Input Table
+  // $('.preVal span').html(preValuation);
+  // $('.postVal span').html(postValuation);
+  // $('.fdPostShares span').html(fdPostShares);
+  // $('.optionShares span').html(optionShares);
+  // $('.sharePriceCom span').html(PPS_VC);
   
+  // // Input sharesSituation
+  // // Common Shares
+  // $('.sharesSituation tr:nth-child(2) td:nth-child(2)').html(parseFloat(PPS_VC).toFixed(2));
+  // $('.sharesSituation tr:nth-child(2) td:nth-child(3)').html(parseFloat(commonShares).toFixed(0));
+  // $('.sharesSituation tr:nth-child(2) td:nth-child(4)').html(parseFloat(commonPercent).toFixed(0));
+
+  // // Option Pool
+  // $('.sharesSituation tr:nth-child(3) td:nth-child(2)').html(parseFloat('N/A').toFixed(0));
+  // $('.sharesSituation tr:nth-child(3) td:nth-child(3)').html(parseFloat(optionShares).toFixed(0));
+  // $('.sharesSituation tr:nth-child(3) td:nth-child(4)').html(parseFloat(optionPercent).toFixed(0));
+
+  // // VC Shares
+  // $('.sharesSituation tr:nth-child(4) td:nth-child(2)').html(parseFloat(PPS_VC).toFixed(2));
+  // $('.sharesSituation tr:nth-child(4) td:nth-child(3)').html(parseFloat(vcShares).toFixed(0));
+  // $('.sharesSituation tr:nth-child(4) td:nth-child(4)').html(parseFloat(vcPercent).toFixed(0));
+
+  // // SAFE Shares
+  // $('.sharesSituation tr:nth-child(5) td:nth-child(2)').html(parseFloat(PPS_note).toFixed(2));
+  // $('.sharesSituation tr:nth-child(5) td:nth-child(3)').html(parseFloat(totNoteShares).toFixed(0));
+  // $('.sharesSituation tr:nth-child(5) td:nth-child(4)').html(parseFloat(totNotePercent).toFixed(0));
+
 });
 
 /*****
@@ -90,84 +118,172 @@ vcequity_target: VC equity ownership %
 // Goal seeking method for calculating number of options we need to issue to in order to achieve our option pool and VC equity target
 
 function calc_table() {
-  com_shares = calc_com_shares(ss.getRange(16, 2).getValue(), ss.getRange(17, 2).getValue());
-  ss.getRange(20, 5).setValue(com_shares);
+  // com_shares = calc_com_shares(ss.getRange(16, 2).getValue(), ss.getRange(17, 2).getValue());
+  // ss.getRange(20, 5).setValue(com_shares);
   
-  price_per_share = calc_price_per_share(pre_valuation, fd_pre_shares, unallocated_pre_opt, ss.getRange(21, 5).getValue(), ss.getRange(23, 5).getValue());
-  note_price_per_share = calc_note_price_per_share(note_cap, fd_pre_shares, unallocated_pre_opt, ss.getRange(21, 5).getValue());
-  total_vc_shares = calc_vc_shares(vc_investment, price_per_share);
-  total_note_shares = calc_note_shares(total_note_investment, note_price_per_share);
+  // price_per_share = calc_price_per_share(pre_valuation, fd_pre_shares, unallocated_pre_opt, ss.getRange(21, 5).getValue(), ss.getRange(23, 5).getValue());
+  // note_price_per_share = calc_note_price_per_share(note_cap, fd_pre_shares, unallocated_pre_opt, ss.getRange(21, 5).getValue());
+  // total_vc_shares = calc_vc_shares(vc_investment, price_per_share);
+  // total_note_shares = calc_note_shares(total_note_investment, note_price_per_share);
 
-  ss.getRange(24, 2).setValue(price_per_share);
-  ss.getRange(23, 4).setValue(note_price_per_share);
-  ss.getRange(22, 5).setValue(total_vc_shares);
-  ss.getRange(23, 5).setValue(total_note_shares);
+  // ss.getRange(24, 2).setValue(price_per_share);
+  // ss.getRange(23, 4).setValue(note_price_per_share);
+  // ss.getRange(22, 5).setValue(total_vc_shares);
+  // ss.getRange(23, 5).setValue(total_note_shares);
+  commonShares = (fdPreShares - unallocOptionShares);
+  preValuation = (valuation - totInvestment_VC);
+  postValuation = valuation;
+
+  PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares); // PPS = price per share
+  PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
+
+  vcShares = calc_vcShares(totInvestment_VC, PPS_VC);
+  fdPostShares = commonShares + vcShares + totNoteShares + optionShares;
+  commonPercent = calc_percentage(fdPostShares, commonShares);
+  vcPercent = calc_percentage(fdPostShares, vcShares);
+  totNotePercent = calc_percentage(fdPostShares, totNoteShares);
+  optionPercent = calc_percentage(fdPostShares, optionShares);
   
 }
 
-function optimize(optpool_shares, optpool_target, vcequity_target) {
-  pre_money_shares = 5000000
-  optpool_shares = 0
-  optpool_target = 0.05
-  optpool_percentage = ss.getRange(21, 6).getValue();
-//  Logger.log(optpool_percentage);
-  totaldiff = optpool_target - optpool_percentage; //0.05
-//  Logger.log(totaldiff)
-  descentFactor = 5000000 * 0.05
+function optimize() {
+  // Define initial variables
+  var yourInvestment_VC = parseFloat($('input[name="angelInvestment"]').val());
+  var totInvestment_VC = parseFloat($('input[name="totInvestment_VC"]').val());
+  var postOptionPercent = parseFloat($('input[name="postOptionPercent"]').val());
+  var valuation = parseFloat($('input[name="valuation"]').val());
+  var fdPreShares = parseFloat($('input[name="fdPreShares"]').val());
+  var unallocOptionShares = parseFloat($('input[name="unallocOptionShares"]').val());
+
+  // Define note variables
+  var yourInvestment_note = parseFloat($('input[name="yourInvestment_note"]').val());
+  var totInvestment_note = parseFloat($('input[name="totalInvestment_note"]').val());
+  var noteDiscount = parseFloat($('input[name="noteDiscount"]').val());
+  var noteCap = parseFloat($('input[name="noteCap"]').val());
+
+  // Compute Variables
+  var optionShares = 0;
+  var totNoteShares = 0;
+  var commonShares = (fdPreShares - unallocOptionShares);
+  var preValuation = (valuation - totInvestment_VC);
+  var postValuation = valuation;
+
+  var PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares); // PPS = price per share
+  var PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
+
+  var vcShares = calc_vcShares(totInvestment_VC, PPS_VC);
+  var fdPostShares = commonShares + vcShares + totNoteShares + optionShares;
+  var totNoteShares = calc_noteShares(totInvestment_note, PPS_note);
+  var commonPercent = calc_percentage(fdPostShares, commonShares);
+  var vcPercent = calc_percentage(fdPostShares, vcShares);
+  var totNotePercent = calc_percentage(fdPostShares, totNoteShares);
+  var optionPercent = calc_percentage(fdPostShares, optionShares);
+  // postOptionPercent = 0.05
+  totaldiff = postOptionPercent - optionPercent; //0.05
+  descentFactor = fdPreShares * 0.05
   var i = 0;
   var direction = 1;
-  while (true) {
-    calc_table();
-    ss.getRange(21, 5).setValue(optpool_shares);
-    optpool_percentage = ss.getRange(21, 6).getValue();
-    newtotaldiff = Math.abs(optpool_target - optpool_percentage); //0.05
-    // Logger.log("diff now:" + newtotaldiff);
-    // Logger.log("optpool %:" + optpool_percentage); //0.05
+  while (i<1000) {
+    // calc_table();
+    // Define initial variables
+    yourInvestment_VC = parseFloat($('input[name="angelInvestment"]').val());
+    totInvestment_VC = parseFloat($('input[name="totInvestment_VC"]').val());
+    postOptionPercent = parseFloat($('input[name="postOptionPercent"]').val());
+    valuation = parseFloat($('input[name="valuation"]').val());
+    fdPreShares = parseFloat($('input[name="fdPreShares"]').val());
+    unallocOptionShares = parseFloat($('input[name="unallocOptionShares"]').val());
+
+    // Define note ables
+    yourInvestment_note = parseFloat($('input[name="yourInvestment_note"]').val());
+    totInvestment_note = parseFloat($('input[name="totalInvestment_note"]').val());
+    noteDiscount = parseFloat($('input[name="noteDiscount"]').val());
+    noteCap = parseFloat($('input[name="noteCap"]').val());
+
+    // Compute ables
+    commonShares = (fdPreShares - unallocOptionShares);
+    preValuation = (valuation - totInvestment_VC);
+    postValuation = valuation;
+
+    PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares); // PPS = price per share
+    PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
+
+    vcShares = calc_vcShares(totInvestment_VC, PPS_VC);
+    fdPostShares = commonShares + vcShares + totNoteShares + optionShares;
+    totNoteShares = calc_noteShares(totInvestment_note, PPS_note);
+    commonPercent = calc_percentage(fdPostShares, commonShares);
+    vcPercent = calc_percentage(fdPostShares, vcShares);
+    totNotePercent = calc_percentage(fdPostShares, totNoteShares);
+    optionPercent = calc_percentage(fdPostShares, optionShares);
+    // ss.getRange(21, 5).setValue(optionShares);
+    // optionPercent = ss.getRange(21, 6).getValue();
+    newtotaldiff = Math.abs(postOptionPercent - optionPercent); //0.05
     if (newtotaldiff < 0.000001) {
       break;
     }
-    optpool_shares = optpool_shares + descentFactor * direction;
-    Logger.log(optpool_shares);
-    if (optpool_percentage >= optpool_target) {
+    optionShares = optionShares + descentFactor * direction;
+    if (optionPercent >= postOptionPercent) {
       currentdir = -1; // decrease
     } else {
       currentdir = 1; // increase
     }
-    Logger.log("current direction: " + currentdir);
-    Logger.log("old direction" + direction);
     if (currentdir == direction) {
-      Logger.log("continue");
     } else {
       descentFactor = Math.max(descentFactor / 2, 1);
       direction = direction * -1;
-      Logger.log("descent factor" + descentFactor);
     }
     i++;
-    Logger.log("direction for next group:" + direction);
-    Logger.log("-----------------");
   };
+
+  // Input Table
+  $('.preVal span').html(preValuation);
+  $('.postVal span').html(postValuation);
+  $('.fdPostShares span').html(fdPostShares);
+  $('.optionShares span').html(optionShares);
+  $('.sharePriceCom span').html(PPS_VC);
+  
+  // Input sharesSituation
+  // Common Shares
+  $('.sharesSituation tr:nth-child(2) td:nth-child(2)').html(parseFloat(PPS_VC).toFixed(2));
+  $('.sharesSituation tr:nth-child(2) td:nth-child(3)').html(parseFloat(commonShares).toFixed(0));
+  $('.sharesSituation tr:nth-child(2) td:nth-child(4)').html(parseFloat(commonPercent).toFixed(4));
+
+  // Option Pool
+  $('.sharesSituation tr:nth-child(3) td:nth-child(2)').html(parseFloat('N/A').toFixed(0));
+  $('.sharesSituation tr:nth-child(3) td:nth-child(3)').html(parseFloat(optionShares).toFixed(0));
+  $('.sharesSituation tr:nth-child(3) td:nth-child(4)').html(parseFloat(optionPercent).toFixed(4));
+
+  // VC Shares
+  $('.sharesSituation tr:nth-child(4) td:nth-child(2)').html(parseFloat(PPS_VC).toFixed(2));
+  $('.sharesSituation tr:nth-child(4) td:nth-child(3)').html(parseFloat(vcShares).toFixed(0));
+  $('.sharesSituation tr:nth-child(4) td:nth-child(4)').html(parseFloat(vcPercent).toFixed(4));
+
+  // SAFE Shares
+  $('.sharesSituation tr:nth-child(5) td:nth-child(2)').html(parseFloat(PPS_note).toFixed(2));
+  $('.sharesSituation tr:nth-child(5) td:nth-child(3)').html(parseFloat(totNoteShares).toFixed(0));
+  $('.sharesSituation tr:nth-child(5) td:nth-child(4)').html(parseFloat(totNotePercent).toFixed(4));
+
 }
 
 function calc_com_shares(fd_pre_shares, unallocated_pre_opt) {
   return fd_pre_shares - unallocated_pre_opt;
 }
 
-function calc_vc_shares(vc_investment, price_per_share) {
+function calc_vcShares(vc_investment, price_per_share) {
   return vc_investment / price_per_share;
 }
 
-function calc_note_shares(total_note_investment, note_price_per_share) {
+function calc_noteShares(total_note_investment, note_price_per_share) {
   return total_note_investment / note_price_per_share;
 }
 
-function calc_ownership_per(fd_post_shares, shares) {
+function calc_percentage(fd_post_shares, shares) {
   return shares / fd_post_shares;
 }
 
-function calc_price_per_share(pre_valuation, fd_pre_shares, unallocated_pre_opt, optpool_shares, total_note_shares) {
+function calc_vcPPS(pre_valuation, fd_pre_shares, unallocated_pre_opt, optpool_shares, total_note_shares) {
   return pre_valuation / (fd_pre_shares - unallocated_pre_opt + optpool_shares + total_note_shares)
 }
 
-function calc_note_price_per_share(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shares) {
+function calc_notePPS(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shares) {
   return note_cap / (fd_pre_shares - unallocated_pre_opt + optpool_shares)
 }
