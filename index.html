@@ -9,73 +9,84 @@
 </head>
 <body>
 
-	<table class="sharesSituation">
-		<tr>
-			<th></th>
-			<th>Owner</th>
-			<th>Price/Share</th>
-			<th>Shares</th>
-			<th>%</th>
-		</tr>
-		<tr>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-		</tr>
-		<tr>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-		</tr>
-		<tr>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-		</tr>
-		<tr>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-		</tr>
-		<tr>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-			<td>90000</td>
-		</tr>
+	<div id="inputs">
+		<table class="sharesSituation">
+			<tr>
+				<th></th>
+				<th>Price/Share</th>
+				<th>Shares</th>
+				<th>%</th>
+			</tr>
+			<tr>
+				<td>Option Pool</td>
+				<td>90000</td>
+				<td>90000</td>
+				<td>90000</td>
+			</tr>
+			<tr>
+				<td>Common</td>
+				<td>90000</td>
+				<td>90000</td>
+				<td>90000</td>
+			</tr>
+			<tr>
+				<td>VC</td>
+				<td>90000</td>
+				<td>90000</td>
+				<td>90000</td>
+			</tr>
+			<tr>
+				<td>SAFE</td>
+				<td>90000</td>
+				<td>90000</td>
+				<td>90000</td>
+			</tr>
+			<tr>
+				<td>Your Portion Safe</td>
+				<td>90000</td>
+				<td>90000</td>
+				<td>90000</td>
+			</tr>
 
-	</table>
-	<table class>
-		
-	</table>
+		</table>
+		<table class>
+			
+		</table>
 
+		<div>
+		<p class="preVal">Pre Valuation:<span></span></p>
+		<p class="postVal">Post Valuation:<span></span></p>
+		<p class="fdPostShares">Total FD Shares:<span></span></p>
+		<p class="optionPool">Options:<span></span></p>
+		<p class="sharePriceCom">Share Price:<span></span></p>
+		</div>
 
-	<form action="" id="initialState">
-		<legend>Input the initial state of the company here.</legend>
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-	</form>
+		<form action="" id="initialState">
+			<legend>VC Investment<br> Input the initial state of the company here.</legend>
+			your investment: <input class="angelInvestment" type="number" placeholder="0">
+			investment: <input type="number" placeholder="5000000">
+			post-option pool: <input type="number" placeholder="0.1">
+			post valuation: <input type="number" placeholder="20000000">
+			FD premoney shares<input type="number">
+			unallocated shares<input type="number">
+		</form>
 
-	<form action="" class="convertibleNote">
-		<legend>Input the initial state of the company here.</legend>
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-		<input type="text">
-	</form>
+		<form action="" class="convertibleNote">
+			<legend>SAFE<br> Input the initial state of the company here.</legend>
+			your investment: <input type="number">
+			total note: <input type="number">
+			discount: <input type="number">
+			cap: <input type="number">
+		</form>
 
-	<label for="addNew"></label>
-	<button id="addNew">Add a new convertible note</button>
+		<label for="addNew"></label>
+		<button id="addNew">Add a new convertible note</button>
+
+	</div>
+
+	<!-- JQuery, feel free to replace -->
+	<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+	<script src="main.js"></script>
 
 </body>
 </html>

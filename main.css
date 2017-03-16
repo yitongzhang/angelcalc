@@ -1,0 +1,9 @@
+/*temporary ugly css*/
+table, th, tr, td {
+  border: 1px solid black;
+}
+
+div {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

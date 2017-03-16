@@ -30,8 +30,7 @@ function removeComma(x) {
 // Calculate
 $('#inputs').on('input', function() {
   // Call function
-
-  var amount = parseFloat($('#inputs .noteAmount input').val());
+  var angelInvestment = parseFloat($('inputs[name$="angelInvestment"]').val());
   var i = parseFloat($('#inputs .noteInterest input').val());
   var discount = parseFloat($('#inputs .noteDiscount input').val());
   var cap = parseFloat($('#inputs .noteCap input').val());  
