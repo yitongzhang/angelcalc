@@ -41,10 +41,12 @@ function calc_table() {
   vcPercent = calc_percentage(fdPostShares, vcShares);
   totNotePercent = calc_percentage(fdPostShares, totNoteShares);
   optionPercent = calc_percentage(fdPostShares, optionShares);
-  console.log('Common Shares: ' + commonShares)
-  console.log('FD Post Shares: ' + fdPostShares);
-  console.log('OptionShares: ' + optionShares);
-  console.log('OptionPercentage: ' + optionPercent);
+  yourShares_note = calc_yourShares_note(yourInvestment_note, PPS_note);
+  yourSharesPercent_note = calc_percentage(fdPostShares, yourShares_note);
+  // console.log('Common Shares: ' + commonShares)
+  // console.log('FD Post Shares: ' + fdPostShares);
+  // console.log('OptionShares: ' + optionShares);
+  // console.log('OptionPercentage: ' + optionPercent);
 }
 
 // Calculate
@@ -101,6 +103,10 @@ function calc_noteShares(total_note_investment, note_price_per_share) {
   return (total_note_investment / note_price_per_share) || 0;
 }
 
+function calc_yourShares_note(yourInvestment_note, note_price_per_share) {
+  return (yourInvestment_note / note_price_per_share) || 0;
+}
+
 function calc_percentage(fd_post_shares, shares) {
   return (shares / fd_post_shares) || 0;
 }
@@ -142,6 +148,12 @@ function update_tables() {
   $('.sharesSituation tr:nth-child(5) td:nth-child(2)').html(parseFloat(PPS_note).toFixed(2));
   $('.sharesSituation tr:nth-child(5) td:nth-child(3)').html(parseFloat(totNoteShares).toFixed(0));
   $('.sharesSituation tr:nth-child(5) td:nth-child(4)').html(parseFloat(totNotePercent).toFixed(4));
+
+  // Your SAFE Shares
+  $('.sharesSituation tr:nth-child(6) td:nth-child(2)').html(parseFloat(PPS_note).toFixed(2));
+  $('.sharesSituation tr:nth-child(6) td:nth-child(3)').html(parseFloat(yourShares_note).toFixed(0));
+  $('.sharesSituation tr:nth-child(6) td:nth-child(4)').html(parseFloat(yourSharesPercent_note).toFixed(4));
+
 }
 
 // Non Core Functions ---------------------------------------------------------
