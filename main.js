@@ -31,8 +31,8 @@ function calc_table() {
   preValuation = (valuation - totInvestment_VC);
   postValuation = valuation;
 
-  PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares); // PPS = price per share
   PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
+  PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount); // PPS = price per share
 
   vcShares = calc_vcShares(totInvestment_VC, PPS_VC) || 0;
   fdPostShares = (commonShares + vcShares + totNoteShares + optionShares) || 0;
@@ -115,7 +115,7 @@ function calc_vcPPS(pre_valuation, fd_pre_shares, unallocated_pre_opt, optpool_s
   return (pre_valuation / (fd_pre_shares - unallocated_pre_opt + optpool_shares + total_note_shares)) || 0
 }
 
-function calc_notePPS(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shares) {
+function calc_notePPS(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shares, PPS_VC, noteDiscount) {
   return (note_cap / (fd_pre_shares - unallocated_pre_opt + optpool_shares)) || 0
 }
 
