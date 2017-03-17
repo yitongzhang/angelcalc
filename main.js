@@ -16,8 +16,9 @@ function calc_table() {
   noteCap = parseFloat($('input[name="noteCap"]').val());
 
   // Compute Variables
+  // this might be a problem with calculation down the line...
   optionShares = 0;
-  totNoteShares = 0;
+  totNoteShares = 0; 
   commonShares = (fdPreShares - unallocOptionShares);
   preValuation = (valuation - totInvestment_VC);
   postValuation = valuation;
@@ -73,7 +74,6 @@ $('#inputs').on('input', function() {
 function optimize() {
   // Define initial variables
   calc_table();
-  // postOptionPercent = 0.05
   totaldiff = postOptionPercent - optionPercent; //0.05
   descentFactor = fdPreShares * 0.05
   var i = 0;
