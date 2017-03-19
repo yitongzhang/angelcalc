@@ -122,11 +122,11 @@ function calc_notePPS(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shar
 // Update Tables
 function update_tables() {
   // Input Table
-  $('.preVal span').html(preValuation);
-  $('.postVal span').html(postValuation);
-  $('.fdPostShares span').html(fdPostShares);
-  $('.optionShares span').html(optionShares);
-  $('.sharePriceCom span').html(PPS_VC);
+  $('.preVal .updateValue').html(preValuation);
+  $('.postVal .updateValue').html(postValuation);
+  $('.fdPostShares .updateValue').html(fdPostShares);
+  $('.optionShares .updateValue').html(optionShares);
+  $('.sharePriceCom .updateValue').html(PPS_VC);
   
   // Input sharesSituation
   // Common Shares

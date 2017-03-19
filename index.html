@@ -10,78 +10,154 @@
 <body>
 
 	<div id="inputs">
-		<table class="sharesSituation">
-			<tr>
-				<th></th>
-				<th>Price/Share</th>
-				<th>Shares</th>
-				<th>%</th>
-			</tr>
-			<tr>
-				<td>Common</td>
-				<td>90000</td>
-				<td>90000</td>
-				<td>90000</td>
-			</tr>
-			<tr>
-				<td>Option Pool</td>
-				<td>90000</td>
-				<td>90000</td>
-				<td>90000</td>
-			</tr>
-			<tr>
-				<td>VC</td>
-				<td>90000</td>
-				<td>90000</td>
-				<td>90000</td>
-			</tr>
-			<tr>
-				<td>SAFE</td>
-				<td>90000</td>
-				<td>90000</td>
-				<td>90000</td>
-			</tr>
-			<tr>
-				<td>Your Portion Safe</td>
-				<td>90000</td>
-				<td>90000</td>
-				<td>90000</td>
-			</tr>
-
-		</table>
-		<table class>
+		<header class="outputFields">
+			<table class="sharesSituation">
+				<tr>
+					<th class="rowHead">Owner</th>
+					<th>Price/Share</th>
+					<th>Shares</th>
+					<th>%</th>
+				</tr>
+				<tr>
+					<td class="line"></td>
+					<td class="line"></td>
+					<td class="line"></td>
+					<td class="line"></td>
+				</tr>
+				<tr>
+					<td class="rowHead">Common</td>
+					<td>000,000</td>
+					<td>000,000</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td class="rowHead">Option Pool</td>
+					<td>000,000</td>
+					<td>000,000</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td class="rowHead">VC</td>
+					<td>000,000</td>
+					<td>000,000</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td class="rowHead">SAFE</td>
+					<td>000,000</td>
+					<td>000,000</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td class="rowHead">Your Portion SAFE</td>
+					<td>000,000</td>
+					<td>000,000</td>
+					<td>0</td>
+				</tr>
+			</table>
 			
-		</table>
+			<table class="companySituation">
+				<tr>
+					<th>Company: Post Financing</th>
+					<th>Lorem Ipsum</th>
+				</tr>
+				<tr>
+					<td class="line"></td>
+					<td class="line"></td>
+				</tr>
+				<tr class="preVal">
+					<td class="rowHead">Pre Valuation</td>
+					<td class="updateValue">000,000</td>
+				</tr>
+				<tr class="postVal">
+					<td class="rowHead">Post Valuation</td>
+					<td class="updateValue">000,000</td>
+				</tr>
+				<tr class="fdPostShares">
+					<td class="rowHead">Total FD Shares</td>
+					<td class="updateValue">000,000</td>
+				</tr>
+				<tr class="optionShares">
+					<td class="rowHead">Options</td>
+					<td class="updateValue">000,000</td>
+				</tr>
+				<tr class="sharePriceCom">
+					<td class="rowHead">Share Price</td>
+					<td class="updateValue">000,000</td>
+				</tr>
+			</table>
+		</header>
 
-		<div>
-		<p class="preVal">Pre Valuation:<span></span></p>
-		<p class="postVal">Post Valuation:<span></span></p>
-		<p class="fdPostShares">Total FD Shares:<span></span></p>
-		<p class="optionShares">Options:<span></span></p>
-		<p class="sharePriceCom">Share Price:<span></span></p>
-		</div>
-
-		<form action="" id="initialState">
-			<legend>VC Investment<br> Input the initial state of the company here.</legend>
-			your investment: <input name="yourInvestment_VC" type="text" placeholder="0">
-			total investment: <input name="totInvestment_VC" type="number" placeholder="5000000">
-			post-option pool: <input name="postOptionPercent" type="number" placeholder="0.1">
-			post valuation: <input name="valuation" type="number" placeholder="20000000">
-			FD premoney shares<input name="fdPreShares" type="number">
-			unallocated shares<input name="unallocOptionShares" type="number">
-		</form>
-
-		<form action="" class="convertibleNote">
-			<legend>SAFE<br> Input the initial state of the company here.</legend>
-			your investment: <input name="yourInvestment_note" type="number">
-			total note: <input name="totalInvestment_note" type="number">
-			discount: <input name="noteDiscount" type="number">
-			cap: <input name="noteCap" type="number">
-		</form>
-
-		<label for="addNew"></label>
-		<button id="addNew">Add a new convertible note</button>
-
+		<main class="inputFields">
+			<article id="qualifiedFinancing">
+				<div class="articleTitle">
+					<h1>Qualified Financing</h1>
+					<h2>Input the initial state of the company here</h2>
+				</div>
+				<form action="" id="initialState" class="inputFieldGroup">
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="yourInvestment_VC" id="yourInvestment_VC" type="text" placeholder="000,000">
+						<label for="yourInvestment_VC">your investment</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="totInvestment_VC" id="totInvestment_VC" type="number" placeholder="5000000">
+						<label for="totInvestment_VC">total investment</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="postOptionPercent" id="postOptionPercent" type="number" placeholder="0.1">
+						<label for="postOptionPercent">post-option pool</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="valuation" id="valuation" type="number" placeholder="20000000">
+						<label for="valuation">post valuation</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="fdPreShares" id="fdPreShares" type="number" placeholder="20000000">
+						<label for="fdPreShares">FD premoney shares</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="unallocOptionShares" id="unallocOptionShares" type="number" placeholder="20000000">
+						<label for="unallocOptionShares">unallocated shares</label>
+					</div>
+				</form>
+			</article>
+			<article id="SAFE">
+				<div class="articleTitle">
+					<h1>SAFE</h1> 
+					<h2>Input the initial state of the company here.</h2>
+				</div>
+				<form action="" class="inputFieldGroup convertibleNote">
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="yourInvestment_note" type="number" id="yourInvestment_note" placeholder="000,000">
+						<label for="yourInvestment_note">your investment</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="totalInvestment_note" type="number" id="totalInvestment_note" placeholder="000,000">
+						<label for="totalInvestment_note">total note</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="noteDiscount" type="number" id="noteDiscount" placeholder="000,000">
+						<label for="noteDiscount">discount</label>
+					</div>
+					<div class="inputFieldItem">
+						<div class="line"></div>
+						<input name="noteCap" type="number" id="noteCap" placeholder="000,000">
+						<label for="noteCap">cap</label>
+					</div>
+				</form>
+			</article>
+			<label for="addNew"></label>
+			<button id="addNew">Add a new convertible note</button>
+		</main>
 	</div>
 
 	<!-- JQuery, feel free to replace -->
