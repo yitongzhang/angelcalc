@@ -1,6 +1,8 @@
 /*Global stuff*/
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%; 
+  box-sizing: border-box;
+}
 body {
   font-size: 1.5em; 
   line-height: 1.6;
@@ -32,7 +34,6 @@ p { margin-top: 0; }
 html{
   background-color: #FAFAF5;
 }
-
 
 /*outputs*/
 .outputFields{

@@ -56,7 +56,9 @@ $('#inputs').on('input', function() {
 
   // Update tables
   update_tables();
+  lightUpOutput();
 });
+
 
 // Optimization Function
 // Goal seeking method for calculating number of options we need to issue to in order to achieve our option pool and VC equity target
@@ -122,37 +124,37 @@ function calc_notePPS(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shar
 // Update Tables
 function update_tables() {
   // Input Table
-  $('.preVal .updateValue').html(preValuation);
-  $('.postVal .updateValue').html(postValuation);
-  $('.fdPostShares .updateValue').html(fdPostShares);
-  $('.optionShares .updateValue').html(optionShares);
-  $('.sharePriceCom .updateValue').html(PPS_VC);
+  $('.preVal .updateValue').html(numberFormat(parseFloat(preValuation).toFixed(2)));
+  $('.postVal .updateValue').html(numberFormat(parseFloat(postValuation).toFixed(2)));
+  $('.fdPostShares .updateValue').html(numberFormat(parseFloat(fdPostShares).toFixed(0)));
+  $('.optionShares .updateValue').html(numberFormat(parseFloat(optionShares).toFixed(0)));
+  $('.sharePriceCom .updateValue').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   
   // Input sharesSituation
   // Common Shares
-  $('.sharesSituation tr:nth-child(2) td:nth-child(2)').html(parseFloat(PPS_VC).toFixed(2));
-  $('.sharesSituation tr:nth-child(2) td:nth-child(3)').html(parseFloat(commonShares).toFixed(0));
-  $('.sharesSituation tr:nth-child(2) td:nth-child(4)').html(parseFloat(commonPercent).toFixed(4));
+  $('.sharesSituation .commonRow .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
+  $('.sharesSituation .commonRow .shares').html(numberFormat(parseFloat(commonShares).toFixed(0)));
+  $('.sharesSituation .commonRow .percentage').html(numberFormat(parseFloat(commonPercent).toFixed(1)));
 
   // Option Pool
-  $('.sharesSituation tr:nth-child(3) td:nth-child(2)').html(parseFloat('N/A').toFixed(0));
-  $('.sharesSituation tr:nth-child(3) td:nth-child(3)').html(parseFloat(optionShares).toFixed(0));
-  $('.sharesSituation tr:nth-child(3) td:nth-child(4)').html(parseFloat(optionPercent).toFixed(4));
+  $('.sharesSituation .optionpoolRow .priceShare').html(numberFormat(parseFloat('N/A').toFixed(0)));
+  $('.sharesSituation .optionpoolRow .shares').html(numberFormat(parseFloat(optionShares).toFixed(0)));
+  $('.sharesSituation .optionpoolRow .percentage').html(numberFormat(parseFloat(optionPercent).toFixed(1)));
 
   // VC Shares
-  $('.sharesSituation tr:nth-child(4) td:nth-child(2)').html(parseFloat(PPS_VC).toFixed(2));
-  $('.sharesSituation tr:nth-child(4) td:nth-child(3)').html(parseFloat(vcShares).toFixed(0));
-  $('.sharesSituation tr:nth-child(4) td:nth-child(4)').html(parseFloat(vcPercent).toFixed(4));
+  $('.sharesSituation .vcRow .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
+  $('.sharesSituation .vcRow .shares').html(numberFormat(parseFloat(vcShares).toFixed(0)));
+  $('.sharesSituation .vcRow .percentage').html(numberFormat(parseFloat(vcPercent).toFixed(1)));
 
   // SAFE Shares
-  $('.sharesSituation tr:nth-child(5) td:nth-child(2)').html(parseFloat(PPS_note).toFixed(2));
-  $('.sharesSituation tr:nth-child(5) td:nth-child(3)').html(parseFloat(totNoteShares).toFixed(0));
-  $('.sharesSituation tr:nth-child(5) td:nth-child(4)').html(parseFloat(totNotePercent).toFixed(4));
+  $('.sharesSituation .safeRow .priceShare').html(numberFormat(parseFloat(PPS_note).toFixed(2)));
+  $('.sharesSituation .safeRow .shares').html(numberFormat(parseFloat(totNoteShares).toFixed(0)));
+  $('.sharesSituation .safeRow .percentage').html(numberFormat(parseFloat(totNotePercent).toFixed(1)));
 
   // Your SAFE Shares
-  $('.sharesSituation tr:nth-child(6) td:nth-child(2)').html(parseFloat(PPS_note).toFixed(2));
-  $('.sharesSituation tr:nth-child(6) td:nth-child(3)').html(parseFloat(yourShares_note).toFixed(0));
-  $('.sharesSituation tr:nth-child(6) td:nth-child(4)').html(parseFloat(yourSharesPercent_note).toFixed(4));
+  $('.sharesSituation .yourPortionSafe .priceShare').html(numberFormat(parseFloat(PPS_note).toFixed(2)));
+  $('.sharesSituation .yourPortionSafe .shares').html(numberFormat(parseFloat(yourShares_note).toFixed(0)));
+  $('.sharesSituation .yourPortionSafe .percentage').html(numberFormat(parseFloat(yourSharesPercent_note).toFixed(1)));
 
 }
 
@@ -184,4 +186,16 @@ function CommaFormatted(amount) {
 
 function removeComma(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function lightUpOutput(){
+  $('.outputFields td').css('opacity',"1");
+  console.log()
+}
+
+// add comma at every three 0's
+function numberFormat(x){
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
 }
