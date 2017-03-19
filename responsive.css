@@ -1,0 +1,166 @@
+/*Between phone and tablet*/
+@media (max-width: 1024px) {
+	.sharesSituation{
+	  margin-right: 4%;
+	}
+	h1{
+	  font-family: "Tisa Pro", serif;
+	  font-size: 1.2em;
+	  line-height: 1;
+	}
+
+	h2{
+	  font-family: "freight-sans-pro";
+	  font-weight: 500;
+	  font-size: 0.7em;
+	  color: #5B5B5B;
+	  line-height: 1.1;
+	}
+
+	.outputFields td{
+	  font-family: "Tisa Pro", serif;
+	  font-size: 1em;
+	  padding-right:50px;
+	  opacity: 0.05;
+	  text-align: right;
+	}
+
+	.outputFields th{
+	  font-family: "freight-sans-pro";
+	  font-weight: 400;
+	  font-size: 0.7em;
+	  line-height: 1;
+	  text-align: left;
+	  padding-bottom: 6px;
+	}
+
+
+	.inputFieldItem label{
+	  display: block;
+	  font-family: "freight-sans-pro";
+	  font-weight: 500;
+	  font-size: 0.7em;
+	  color: #5B5B5B;
+	  line-height: 1;
+	}
+
+	.inputFieldItem input{
+	  border: 0;
+	  background-color: #FAFAF5;
+	  max-width: 95%;
+	  font-family: "Tisa Pro", serif;
+	  font-size: 1.2em;
+	  /*border-top: solid 2px #222;*/
+	  position:relative;
+	}
+
+	button{
+	  background-color: #FAFAF5;
+	  border:0;
+	  font-family: "Tisa Pro", serif;
+	  font-size: 1.2em;
+	  padding-left: 0;
+	  margin: 2% 0;
+	  opacity: 0.2;
+	}
+}
+
+/*Smaller than phones*/
+@media (max-width: 750px) {
+	.inputFieldGroup{
+		flex-direction: column;
+	}
+	.inputFields{
+		padding-top: 30px;
+		padding-bottom: 20px;
+	}
+
+	.outputFields{
+		flex-direction: column;
+		padding-top: 20px;
+		padding-bottom: 30px;
+	}
+	.inputFieldItem {
+	  width: 100%;
+	  max-width: 750px;
+	  margin-bottom: 10px;
+	  margin-top: 10px;	
+	}
+	.inputFieldItem input{
+	  border: 0;
+	  background-color: #FAFAF5;
+	  width: 100%;
+	  font-family: "Tisa Pro", serif;
+	  font-size: 2em;
+	  position:relative;
+	}
+	.inputFieldItem .line{
+	  height: 2px;
+	  background-color: #222;
+	  width: 100px;
+	}
+
+	h1{
+	  font-family: "Tisa Pro", serif;
+	  font-size: 2.5em;
+	  line-height: 1;
+	}
+
+	h2{
+	  font-family: "freight-sans-pro";
+	  font-weight: 500;
+	  font-size: 1.2em;
+	  color: #5B5B5B;
+	  line-height: 1.1;
+	}
+
+	.outputFields td{
+	  font-family: "Tisa Pro", serif;
+	  font-size: 1em;
+	  padding-right:20px;
+	  opacity: 0.05;
+	  text-align: right;
+	}
+
+	.outputFields th{
+	  font-family: "freight-sans-pro";
+	  font-weight: 400;
+	  font-size: 0.6em;
+	  line-height: 1;
+	  text-align: left;
+	  padding-bottom: 6px;
+	}
+
+
+	.inputFieldItem label{
+	  display: block;
+	  font-family: "freight-sans-pro";
+	  font-weight: 500;
+	  font-size: 0.7em;
+	  color: #5B5B5B;
+	  line-height: 1;
+	}
+
+	.inputFieldItem input{
+	  border: 0;
+	  background-color: #FAFAF5;
+	  max-width: 95%;
+	  font-family: "Tisa Pro", serif;
+	  font-size: 2.5em;
+	  /*border-top: solid 2px #222;*/
+	  position:relative;
+	}
+
+	button{
+	  background-color: #FAFAF5;
+	  border:0;
+	  font-family: "Tisa Pro", serif;
+	  font-size: 1.8em;
+	  padding-left: 0;
+	  margin: 2% 0;
+	  opacity: 0.2;
+	}
+
+
+
+}

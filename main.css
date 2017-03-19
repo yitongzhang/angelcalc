@@ -46,10 +46,10 @@ html{
   font-family: "Tisa Pro", serif;
   font-size: 1.4em;
   padding-right:50px;
-  opacity: 0.2;
+  opacity: 0.05;
   text-align: right;
-
 }
+
 .outputFields .rowHead{
   opacity: 1;
   text-align: left;
@@ -94,7 +94,8 @@ article{
 }
 
 .inputFieldItem {
-  max-width: 16%;
+  width: 16%;
+  max-width: 220px;
 }
 
 .inputFieldItem label{
@@ -126,6 +127,8 @@ article{
 input:focus {
   background-color: #F5F5F0;
   outline:none;
+  border-top: solid 2px #222;
+  margin-top: -2px;
 }
 
 button{
