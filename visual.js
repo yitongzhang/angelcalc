@@ -6,7 +6,7 @@ class FieldItem extends React.Component{
 		return(
 			<div className="inputFieldItem">
 				<div className="line"></div>
-				<input type="number" id={this.props.noteID} name={this.props.noteID} placeholder="0"/>
+				<input type="number" id={this.props.noteID} name={this.props.noteID} placeholder="000,000"/>
 				<label htmlFor={this.props.noteID}>{this.props.noteField}</label>
 			</div>
 		);
@@ -20,9 +20,9 @@ class NoteItem extends React.Component{
 		const noteFields = noteData[noteName].fields;
 		const noteIds = noteData[noteName].fieldId;
 
-		const listOfInputs = noteIds.map((field)=>
+		const listOfInputs = noteIds.map((field, index)=>
 	  		<div key={field.toString()}>
-	  			<FieldItem noteID={field} noteField={field}/>
+	  			<FieldItem noteID={field} noteField={noteFields[index]}/>
 	  		</div>
 		);
 
@@ -67,5 +67,6 @@ $('#addNewNote').on('input', function() {
 	// make selector go back to default action
 });
 
+// make delete work
 
 
