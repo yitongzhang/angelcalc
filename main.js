@@ -89,7 +89,6 @@ function optimize() {
       direction = direction * -1;
     }
     i++;
-    console.log(optionPercent);
   };
 }
 

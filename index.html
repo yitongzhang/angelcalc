@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="responsive.css">
 </head>
 <body>
-
 	<div id="inputs">
 		<header class="outputFields">
 			<table class="sharesSituation">
@@ -155,14 +154,31 @@
 					</div>
 				</form>
 			</article>
-			<label for="addNew"></label>
-			<button id="addNew">Add a new convertible note</button>
+
+			<div id="insertNotesHere"></div>
+
+			<select id="addNewNote">
+				<option value="Add a new convertible note">Add a new convertible note</option>
+				<option value="YC Standard SAFE">YC Standard SAFE</option>
+				<option value="YC Standard Note">YC Standard Note</option>
+				<option value="YCVC SAFE">YCVC SAFE</option>
+				<option value="Post money SAFE">Post money SAFE</option>
+			</select>
+
 		</main>
 	</div>
 
+	<!-- Some react for templating -->
+	<script src="https://fb.me/react-15.0.1.js"></script>
+    <script src="https://fb.me/react-dom-15.0.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
 	<!-- JQuery, feel free to replace -->
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	<script src="data.js"></script>
 	<script src="main.js"></script>
+	<script src="visual.js" type="text/babel"></script>
+
 
 	<!-- Fonts from Typekit -->
 	<script src="https://use.typekit.net/zha7pes.js"></script>

@@ -1,4 +1,10 @@
 /*Global stuff*/
+#insertNotesHere{
+  padding: 300px;
+  background-color: red;
+}
+
+
 html {
   font-size: 62.5%; 
   box-sizing: border-box;
@@ -132,23 +138,24 @@ input:focus {
   margin-top: -2px;
 }
 
-button{
+select{
   background-color: #FAFAF5;
-  border:0;
+  outline: none;
+  border: 0;
   font-family: "Tisa Pro", serif;
   font-size: 2em;
   padding-left: 0;
   margin: 2% 0;
   opacity: 0.2;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
 }
 
-button:hover{
+select:hover{
   opacity: 1;
   cursor: pointer;
-}
-
-button:focus{
-  outline:none;
 }
 
 
