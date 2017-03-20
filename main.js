@@ -5,7 +5,6 @@ window.onload = function onload() {
   commonShares = 0;
   vcShares = 0;
 
-  console.log('helloooooooo world');
   console.log('initial optionShares: ' + optionShares);
   calc_table();
 }
@@ -14,7 +13,7 @@ window.onload = function onload() {
 function calc_table() {
   yourInvestment_VC = parseFloat($('input[name="angelInvestment"]').val());
   totInvestment_VC = parseFloat($('input[name="totInvestment_VC"]').val());
-  postOptionPercent = parseFloat($('input[name="postOptionPercent"]').val());
+  postOptionPercent = parseFloat($('input[name="postOptionPercent"]').val()) / 100;
   valuation = parseFloat($('input[name="valuation"]').val());
   fdPreShares = parseFloat($('input[name="fdPreShares"]').val());
   unallocOptionShares = parseFloat($('input[name="unallocOptionShares"]').val());
@@ -22,7 +21,7 @@ function calc_table() {
   // Define note variables
   yourInvestment_note = parseFloat($('input[name="yourInvestment_note"]').val());
   totInvestment_note = parseFloat($('input[name="totalInvestment_note"]').val());
-  noteDiscount = parseFloat($('input[name="noteDiscount"]').val());
+  noteDiscount = parseFloat($('input[name="noteDiscount"]').val()) / 100;
   noteCap = parseFloat($('input[name="noteCap"]').val());
 
   // Compute Variables
@@ -33,6 +32,9 @@ function calc_table() {
 
   PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
   PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount); // PPS = price per share
+  PPS_noteDiscount = calc_notePPS_discount(PPS_VC, noteDiscount);
+  PPS_note = Math.min(PPS_note, PPS_noteDiscount);
+  console.log("note discount: " +noteDiscount);
 
   vcShares = calc_vcShares(totInvestment_VC, PPS_VC) || 0;
   fdPostShares = (commonShares + vcShares + totNoteShares + optionShares) || 0;
@@ -97,15 +99,18 @@ function calc_com_shares(fd_pre_shares, unallocated_pre_opt) {
 }
 
 function calc_vcShares(vc_investment, price_per_share) {
-  return (vc_investment / price_per_share) || 0;
+  vcShares = (vc_investment / price_per_share)
+  return isFinite(vcShares) && vcShares || 0;
 }
 
 function calc_noteShares(total_note_investment, note_price_per_share) {
-  return (total_note_investment / note_price_per_share) || 0;
+  noteShares = (total_note_investment / note_price_per_share)
+  return isFinite(noteShares) && noteShares || 0;
 }
 
 function calc_yourShares_note(yourInvestment_note, note_price_per_share) {
-  return (yourInvestment_note / note_price_per_share) || 0;
+  yourShares = (yourInvestment_note / note_price_per_share)
+  return isFinite(yourShares) && yourShares || 0;
 }
 
 function calc_percentage(fd_post_shares, shares) {
@@ -113,11 +118,15 @@ function calc_percentage(fd_post_shares, shares) {
 }
 
 function calc_vcPPS(pre_valuation, fd_pre_shares, unallocated_pre_opt, optpool_shares, total_note_shares) {
-  return (pre_valuation / (fd_pre_shares - unallocated_pre_opt + optpool_shares + total_note_shares)) || 0
+  return (pre_valuation / (fd_pre_shares - unallocated_pre_opt + optpool_shares + total_note_shares)) || 0;
 }
 
 function calc_notePPS(note_cap, fd_pre_shares, unallocated_pre_opt, optpool_shares, PPS_VC, noteDiscount) {
-  return (note_cap / (fd_pre_shares - unallocated_pre_opt + optpool_shares)) || 0
+  return (note_cap / (fd_pre_shares - unallocated_pre_opt + optpool_shares)) || 0;
+}
+
+function calc_notePPS_discount(PPS_VC, noteDiscount) {
+  return (PPS_VC * (1 - noteDiscount));
 }
 
 // Update Tables
