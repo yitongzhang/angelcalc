@@ -16,6 +16,7 @@ h1{
   font-family: "Tisa Pro", serif;
   font-size: 2em;
   line-height: 1;
+  display: inline-block;
 }
 
 h2{
@@ -96,7 +97,6 @@ article{
 }
 
 .inputFieldItem {
-  width: 16%;
   max-width: 220px;
 }
 
@@ -125,6 +125,7 @@ article{
   width: 30%;
 }
 
+/*Interactive elements*/
 
 input:focus {
   background-color: #F5F5F0;
@@ -153,5 +154,28 @@ select:hover{
   cursor: pointer;
 }
 
+button{
+  display: inline-block;
+  background-color:  #FAFAF5;
+  padding:0px;
+  border:0;
+  margin: 0 0 0px 8px;
+  opacity: 0.4;
+}
 
-/*le Grid*/
+button img{
+  margin-bottom: 2px;
+  height: 16px;
+}
+
+button:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+
+button:focus{
+  outline: none;
+  background-color: #EEE;
+}
+
+

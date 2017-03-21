@@ -29,7 +29,7 @@ class NoteItem extends React.Component{
 		return(
 			<article id={this.props.noteName} key={noteName.toString()}>
     			<div className="articleTitle">
-					<h1>{this.props.noteName} <button>X</button></h1>
+					<h1>{this.props.noteName}</h1><button><img src="close.svg"/></button>
 					<h2>Input the note data here.</h2>
     			</div>
     			<form action="" className="inputFieldGroup">
