@@ -4,11 +4,22 @@ window.onload = function onload() {
   totNoteShares = 0; 
   commonShares = 0;
   vcShares = 0;
+  i = 0;
 
   console.log('initial optionShares: ' + optionShares);
   calc_table();
 }
 
+var noteArray = new Array();
+$(".convNote").each(function () {
+    var vals = {price: 0, 
+                shares: 0, 
+                percentage: 0,
+                yourShares: 0,
+                yourPercentage: 0};
+    noteArray.push(vals)
+})
+console.log(noteArray);
 
 function calc_table() {
   yourInvestment_VC = parseFloat($('input[name="angelInvestment"]').val());
@@ -34,21 +45,29 @@ function calc_table() {
   PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount); // PPS = price per share
   PPS_noteDiscount = calc_notePPS_discount(PPS_VC, noteDiscount);
   PPS_note = Math.min(PPS_note, PPS_noteDiscount);
-  console.log("note discount: " +noteDiscount);
 
   vcShares = calc_vcShares(totInvestment_VC, PPS_VC) || 0;
   fdPostShares = (commonShares + vcShares + totNoteShares + optionShares) || 0;
-  totNoteShares = calc_noteShares(totInvestment_note, PPS_note) || 0;
+
+  // calculate the PPS, shares, percentage and total shares of all converted notes for each note we have present
+  totNoteShares = 0;
+  for (var i=0; i < noteArray.length; i++) {
+    noteArray[i].price = Math.min(calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount), calc_notePPS_discount(PPS_VC, noteDiscount));
+    noteArray[i].shares = calc_noteShares(totInvestment_note, noteArray[i].price) || 0;
+    noteArray[i].percentage = calc_percentage(fdPostShares, noteArray[i].shares) || 0;
+    noteArray[i].yourShares = calc_yourShares_note(yourInvestment_note, noteArray[i].price);
+    noteArray[i].yourPercentage = calc_percentage(fdPostShares, noteArray[i].yourShares);
+
+    totNoteShares += noteArray[i].shares;
+  }
+
+  // totNoteShares = calc_noteShares(totInvestment_note, PPS_note) || 0;
   commonPercent = calc_percentage(fdPostShares, commonShares);
   vcPercent = calc_percentage(fdPostShares, vcShares);
   totNotePercent = calc_percentage(fdPostShares, totNoteShares);
   optionPercent = calc_percentage(fdPostShares, optionShares);
-  yourShares_note = calc_yourShares_note(yourInvestment_note, PPS_note);
-  yourSharesPercent_note = calc_percentage(fdPostShares, yourShares_note);
-  // console.log('Common Shares: ' + commonShares)
-  // console.log('FD Post Shares: ' + fdPostShares);
-  // console.log('OptionShares: ' + optionShares);
-  // console.log('OptionPercentage: ' + optionPercent);
+  // yourShares_note = calc_yourShares_note(yourInvestment_note, PPS_note);
+  // yourSharesPercent_note = calc_percentage(fdPostShares, yourShares_note);
 }
 
 // Calculate
