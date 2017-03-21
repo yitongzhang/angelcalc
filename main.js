@@ -10,8 +10,10 @@ window.onload = function onload() {
   calc_table();
 }
 
+// Create a new object and push into Array for each note that is detected
 var noteArray = new Array();
-$(".convNote").each(function () {
+//Identifying through class convNote
+$(".convNote").each(function () { 
     var vals = {price: 0, 
                 shares: 0, 
                 percentage: 0,
@@ -22,7 +24,7 @@ $(".convNote").each(function () {
 console.log(noteArray);
 
 function calc_table() {
-  yourInvestment_VC = parseFloat($('input[name="angelInvestment"]').val());
+  yourInvestment_VC = parseFloat($('input[name="yourInvestment_VC"]').val());
   totInvestment_VC = parseFloat($('input[name="totInvestment_VC"]').val());
   postOptionPercent = parseFloat($('input[name="postOptionPercent"]').val()) / 100;
   valuation = parseFloat($('input[name="valuation"]').val());
@@ -46,28 +48,27 @@ function calc_table() {
   PPS_noteDiscount = calc_notePPS_discount(PPS_VC, noteDiscount);
   PPS_note = Math.min(PPS_note, PPS_noteDiscount);
 
-  vcShares = calc_vcShares(totInvestment_VC, PPS_VC) || 0;
+  vcShares = calc_SharesPPS(totInvestment_VC, PPS_VC);
   fdPostShares = (commonShares + vcShares + totNoteShares + optionShares) || 0;
 
   // calculate the PPS, shares, percentage and total shares of all converted notes for each note we have present
   totNoteShares = 0;
   for (var i=0; i < noteArray.length; i++) {
     noteArray[i].price = Math.min(calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount), calc_notePPS_discount(PPS_VC, noteDiscount));
-    noteArray[i].shares = calc_noteShares(totInvestment_note, noteArray[i].price) || 0;
-    noteArray[i].percentage = calc_percentage(fdPostShares, noteArray[i].shares) || 0;
-    noteArray[i].yourShares = calc_yourShares_note(yourInvestment_note, noteArray[i].price);
+    noteArray[i].shares = calc_SharesPPS(totInvestment_note, noteArray[i].price);
+    noteArray[i].percentage = calc_percentage(fdPostShares, noteArray[i].shares);
+    noteArray[i].yourShares = calc_SharesPPS(yourInvestment_note, noteArray[i].price);
     noteArray[i].yourPercentage = calc_percentage(fdPostShares, noteArray[i].yourShares);
 
     totNoteShares += noteArray[i].shares;
   }
 
-  // totNoteShares = calc_noteShares(totInvestment_note, PPS_note) || 0;
   commonPercent = calc_percentage(fdPostShares, commonShares);
   vcPercent = calc_percentage(fdPostShares, vcShares);
   totNotePercent = calc_percentage(fdPostShares, totNoteShares);
   optionPercent = calc_percentage(fdPostShares, optionShares);
-  // yourShares_note = calc_yourShares_note(yourInvestment_note, PPS_note);
-  // yourSharesPercent_note = calc_percentage(fdPostShares, yourShares_note);
+  yourShares_VC = calc_SharesPPS(yourInvestment_VC, PPS_VC);
+  yourPercentage_VC = calc_percentage(fdPostShares, yourShares_VC);
 }
 
 // Calculate
@@ -117,19 +118,9 @@ function calc_com_shares(fd_pre_shares, unallocated_pre_opt) {
   return (fd_pre_shares - unallocated_pre_opt) || 0;
 }
 
-function calc_vcShares(vc_investment, price_per_share) {
-  vcShares = (vc_investment / price_per_share)
-  return isFinite(vcShares) && vcShares || 0;
-}
-
-function calc_noteShares(total_note_investment, note_price_per_share) {
-  noteShares = (total_note_investment / note_price_per_share)
-  return isFinite(noteShares) && noteShares || 0;
-}
-
-function calc_yourShares_note(yourInvestment_note, note_price_per_share) {
-  yourShares = (yourInvestment_note / note_price_per_share)
-  return isFinite(yourShares) && yourShares || 0;
+function calc_SharesPPS(investment, price) {
+  shares = (investment / price);
+  return isFinite(shares) && shares || 0;
 }
 
 function calc_percentage(fd_post_shares, shares) {
@@ -161,27 +152,27 @@ function update_tables() {
   // Common Shares
   $('.sharesSituation .commonRow .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   $('.sharesSituation .commonRow .shares').html(numberFormat(parseFloat(commonShares).toFixed(0)));
-  $('.sharesSituation .commonRow .percentage').html(numberFormat(parseFloat(commonPercent).toFixed(1)));
+  $('.sharesSituation .commonRow .percentage').html(numberFormat(parseFloat(commonPercent).toFixed(2)));
 
   // Option Pool
   $('.sharesSituation .optionpoolRow .priceShare').html(numberFormat(parseFloat('N/A').toFixed(0)));
   $('.sharesSituation .optionpoolRow .shares').html(numberFormat(parseFloat(optionShares).toFixed(0)));
-  $('.sharesSituation .optionpoolRow .percentage').html(numberFormat(parseFloat(optionPercent).toFixed(1)));
+  $('.sharesSituation .optionpoolRow .percentage').html(numberFormat(parseFloat(optionPercent).toFixed(2)));
 
   // VC Shares
   $('.sharesSituation .vcRow .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   $('.sharesSituation .vcRow .shares').html(numberFormat(parseFloat(vcShares).toFixed(0)));
-  $('.sharesSituation .vcRow .percentage').html(numberFormat(parseFloat(vcPercent).toFixed(1)));
+  $('.sharesSituation .vcRow .percentage').html(numberFormat(parseFloat(vcPercent).toFixed(2)));
 
   // SAFE Shares
   $('.sharesSituation .safeRow .priceShare').html(numberFormat(parseFloat(PPS_note).toFixed(2)));
   $('.sharesSituation .safeRow .shares').html(numberFormat(parseFloat(totNoteShares).toFixed(0)));
-  $('.sharesSituation .safeRow .percentage').html(numberFormat(parseFloat(totNotePercent).toFixed(1)));
+  $('.sharesSituation .safeRow .percentage').html(numberFormat(parseFloat(totNotePercent).toFixed(2)));
 
   // Your SAFE Shares
   $('.sharesSituation .yourPortionSafe .priceShare').html(numberFormat(parseFloat(PPS_note).toFixed(2)));
-  $('.sharesSituation .yourPortionSafe .shares').html(numberFormat(parseFloat(yourShares_note).toFixed(0)));
-  $('.sharesSituation .yourPortionSafe .percentage').html(numberFormat(parseFloat(yourSharesPercent_note).toFixed(1)));
+  $('.sharesSituation .yourPortionSafe .shares').html(numberFormat(parseFloat(noteArray[0].yourShares).toFixed(0)));
+  $('.sharesSituation .yourPortionSafe .percentage').html(numberFormat(parseFloat(noteArray[0].yourPercentage).toFixed(2)));
 
 }
 
