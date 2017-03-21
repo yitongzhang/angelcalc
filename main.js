@@ -24,18 +24,18 @@ $(".convNote").each(function () {
 console.log(noteArray);
 
 function calc_table() {
-  yourInvestment_VC = parseFloat($('input[name="yourInvestment_VC"]').val());
-  totInvestment_VC = parseFloat($('input[name="totInvestment_VC"]').val());
-  postOptionPercent = parseFloat($('input[name="postOptionPercent"]').val()) / 100;
-  valuation = parseFloat($('input[name="valuation"]').val());
-  fdPreShares = parseFloat($('input[name="fdPreShares"]').val());
-  unallocOptionShares = parseFloat($('input[name="unallocOptionShares"]').val());
+  yourInvestment_VC = parseInput($('input[name="yourInvestment_VC"]'));
+  totInvestment_VC = parseInput($('input[name="totInvestment_VC"]'));
+  postOptionPercent = parseInput($('input[name="postOptionPercent"]')) / 100;
+  valuation = parseInput($('input[name="valuation"]'));
+  fdPreShares = parseInput($('input[name="fdPreShares"]'));
+  unallocOptionShares = parseInput($('input[name="unallocOptionShares"]'));
 
   // Define note variables
-  yourInvestment_note = parseFloat($('input[name="yourInvestment_note"]').val());
-  totInvestment_note = parseFloat($('input[name="totalInvestment_note"]').val());
-  noteDiscount = parseFloat($('input[name="noteDiscount"]').val()) / 100;
-  noteCap = parseFloat($('input[name="noteCap"]').val());
+  yourInvestment_note = parseInput($('input[name="yourInvestment_note"]'));
+  totInvestment_note = parseInput($('input[name="totalInvestment_note"]'));
+  noteDiscount = parseInput($('input[name="noteDiscount"]')) / 100;
+  noteCap = parseInput($('input[name="noteCap"]'));
 
   // Compute Variables
   // this might be a problem with calculation down the line...
@@ -139,6 +139,17 @@ function calc_notePPS_discount(PPS_VC, noteDiscount) {
   return (PPS_VC * (1 - noteDiscount));
 }
 
+// Adding formatting to input value
+$('input.number').keyup(function(event) {
+  // skip for arrow keys
+  if(event.which >= 37 && event.which <= 40) return;
+
+  // format number
+  $(this).val(function(index, value) {
+    return addComma(value);
+  });
+});
+
 // Update Tables
 function update_tables() {
   // Input Table
@@ -178,32 +189,19 @@ function update_tables() {
 
 // Non Core Functions ---------------------------------------------------------
 // Comma Format
-function CommaFormatted(amount) {
-  var delimiter = ","; // replace comma if desired
-  var a = amount.split('.',2)
-  var d = a[1];
-  var i = parseInt(a[0]);
-  if(isNaN(i)) { return ''; }
-  var minus = '';
-  if(i < 0) { minus = '-'; }
-  i = Math.abs(i);
-  var n = new String(i);
-  var a = [];
-  while(n.length > 3) {
-    var nn = n.substr(n.length-3);
-    a.unshift(nn);
-    n = n.substr(0,n.length-3);
-  }
-  if(n.length > 0) { a.unshift(n); }
-  n = a.join(delimiter);
-  if(d.length < 1) { amount = n; }
-  else { amount = n + '.' + d; }
-  amount = minus + amount;
-  return amount;
+function parseInput(value) {
+  return parseFloat(removeComma(value.val()));
+}
+
+function addComma(value) {
+  return value
+  .replace(/\D/g, "")
+  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  ;
 }
 
 function removeComma(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/,/g, "");
 }
 
 function lightUpOutput(){
