@@ -15,7 +15,19 @@ class FieldItem extends React.Component{
 
 // render a single note item based on: noteName, noteFields, noteIDs
 class NoteItem extends React.Component{
+	constructor(props) {
+		super(props);
+		this.state ={display:true};
+	    this.handleClick = this.handleClick.bind(this);
+	}
+	handleClick() {
+		this.setState(prevState => ({
+		  display: !prevState.display
+		}));
+		console.log(this.state)
+	}
 	render(){
+		const display = this.state.display
 		const noteName = this.props.noteName;
 		const noteFields = noteData[noteName].fields;
 		const noteIds = noteData[noteName].fieldId;
@@ -25,18 +37,20 @@ class NoteItem extends React.Component{
 	  			<FieldItem noteID={field} noteField={noteFields[index]}/>
 	  		</div>
 		);
-
-		return(
-			<article id={this.props.noteName} key={noteName.toString()}>
-    			<div className="articleTitle">
-					<h1>{this.props.noteName}</h1><button><img src="close.svg"/></button>
-					<h2>Input the note data here.</h2>
-    			</div>
-    			<form action="" className="inputFieldGroup">
-					{listOfInputs}
-    			</form>
-    		</article>
-		);
+		if(display){
+			return(
+				<article id={this.props.noteName} key={noteName.toString()}>
+	    			<div className="articleTitle">
+						<h1>{this.props.noteName}</h1>
+						<button className="delete" onClick={this.handleClick}><img src="close.svg"/></button>
+						<h2>Input the note data here.</h2>
+	    			</div>
+	    			<form action="" className="inputFieldGroup">
+						{listOfInputs}
+	    			</form>
+	    		</article>
+			);
+		}
 	}
 }
 
@@ -59,14 +73,17 @@ $('#addNewNote').on('input', function() {
 	var selectedNote = $("#addNewNote option:selected").val();
 	notesToRender.push(selectedNote);
 
-	console.log(selectedNote);
-	console.log(notesToRender);
-	console.log(noteData[selectedNote])
+	// console.log(selectedNote);
+	// console.log(notesToRender);
+	// console.log(noteData[selectedNote])
 	ReactDOM.render(<NoteList notesToRender={notesToRender}/> ,document.getElementById('insertNotesHere'));
-	
-	// make selector go back to default action
+	$("#addNewNote").val("Add a new convertible note");
 });
 
-// make delete work
+
+// make delete work for existing note
+$('.delete').click(function(){
+	$('.delete').parent().parent().remove()
+});
 
 
