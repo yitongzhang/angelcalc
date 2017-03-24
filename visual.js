@@ -51,6 +51,11 @@ class NoteItem extends React.Component{
 	    		</article>
 			);
 		}
+		else{
+			return(
+				null
+			);
+		}
 	}
 }
 
