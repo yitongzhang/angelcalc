@@ -6,7 +6,7 @@ class FieldItem extends React.Component{
 		return(
 			<div className="inputFieldItem">
 				<div className="line"></div>
-				<input type="number" id={this.props.noteID} name={this.props.noteID} placeholder="000,000"/>
+				<input id={this.props.noteID} name={this.props.noteID} className="number" type="text"  placeholder="000,000"/>
 				<label htmlFor={this.props.noteID}>{this.props.noteField}</label>
 			</div>
 		);
@@ -39,7 +39,7 @@ class NoteItem extends React.Component{
 		);
 		if(display){
 			return(
-				<article id={this.props.noteName} key={noteName.toString()}>
+				<article id={this.props.noteName} className="convNote" key={noteName.toString()}>
 	    			<div className="articleTitle">
 						<h1>{this.props.noteName}</h1>
 						<button className="delete" onClick={this.handleClick}><img src="close.svg"/></button>
@@ -83,6 +83,13 @@ $('#addNewNote').on('input', function() {
 	// console.log(noteData[selectedNote])
 	ReactDOM.render(<NoteList notesToRender={notesToRender}/> ,document.getElementById('insertNotesHere'));
 	$("#addNewNote").val("Add a new convertible note");
+
+	// Call functions from main.js
+	$.getScript("main.js", function() {
+		calcNoteArray();
+		addNumberFormatting();
+	});
+
 });
 
 

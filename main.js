@@ -8,20 +8,26 @@ window.onload = function onload() {
 
   console.log('initial optionShares: ' + optionShares);
   calc_table();
+  addNumberFormatting();
 }
 
 // Create a new object and push into Array for each note that is detected
 var noteArray = new Array();
-//Identifying through class convNote
-$(".convNote").each(function () { 
-    var vals = {price: 0, 
-                shares: 0, 
-                percentage: 0,
-                yourShares: 0,
-                yourPercentage: 0};
-    noteArray.push(vals)
-})
-console.log(noteArray);
+function calcNoteArray() {
+  noteArray = new Array();
+  //Identifying through class convNote
+  $(".convNote").each(function () { 
+      var vals = {price: 0, 
+                  shares: 0, 
+                  percentage: 0,
+                  yourShares: 0,
+                  yourPercentage: 0};
+      noteArray.push(vals)
+  })
+  console.log(noteArray);
+}
+
+calcNoteArray();
 
 function calc_table() {
   yourInvestment_VC = parseInput($('input[name="yourInvestment_VC"]'));
@@ -139,16 +145,18 @@ function calc_notePPS_discount(PPS_VC, noteDiscount) {
   return (PPS_VC * (1 - noteDiscount));
 }
 
-// Adding formatting to input value
-$('input.number').keyup(function(event) {
-  // skip for arrow keys
-  if(event.which >= 37 && event.which <= 40) return;
+function addNumberFormatting() {
+  // Adding formatting to input value
+  $('input.number').keyup(function(event) {
+    // skip for arrow keys
+    if(event.which >= 37 && event.which <= 40) return;
 
-  // format number
-  $(this).val(function(index, value) {
-    return addComma(value);
+    // format number
+    $(this).val(function(index, value) {
+      return addComma(value);
+    });
   });
-});
+}
 
 // Update Tables
 function update_tables() {
