@@ -66,7 +66,7 @@ function calc_table() {
 
     // Calculating the info for each note
     noteArray[i].price = Math.min(calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount), calc_notePPS_discount(PPS_VC, noteDiscount));
-    noteArray[i].shares = calc_SharesPPS(totInvestment_note, noteArray[i].price);
+    noteArray[i].shares = calc_SharesPPS(noteArray[i].totInvestment, noteArray[i].price);
     noteArray[i].percentage = calc_percentage(fdPostShares, noteArray[i].shares);
     noteArray[i].yourShares = calc_SharesPPS(yourInvestment_note, noteArray[i].price);
     noteArray[i].yourPercentage = calc_percentage(fdPostShares, noteArray[i].yourShares);
