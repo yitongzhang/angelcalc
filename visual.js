@@ -88,19 +88,21 @@ class NoteList extends React.Component {
   }
 }
 
-$('#addNewNote').on('input', function() {
-	var selectedNote = $("#addNewNote option:selected").val();
+$('#addNewNote').on('click', function() {
+
+	// // Uncomment the following to render different notes
+	// var selectedNote = $("#addNewNote option:selected").val();
+	// notesToRender.push(selectedNote);
+	var selectedNote = 'YC Standard SAFE';
 	notesToRender.push(selectedNote);
 
-	// console.log(selectedNote);
-	// console.log(notesToRender);
-	// console.log(noteData[selectedNote])
 	ReactDOM.render(<NoteList notesToRender={notesToRender}/> ,document.getElementById('insertNotesHere'));
-	$("#addNewNote").val("Add a new convertible note");
+
+	// // Uncomment the following to render different notes
+	// $("#addNewNote").val("Add a new convertible note");
 
 	// Reset note ID counter
 	notesRendered["YC Standard SAFE"]=0;
-
 
 	// Call functions from main.js
 	$.getScript("main.js", function() {
@@ -109,11 +111,4 @@ $('#addNewNote').on('input', function() {
 	});
 
 });
-
-
-// make delete work for existing note
-$('.deletethis').click(function(){
-	$('.deletethis').parent().parent().remove()
-});
-
 
