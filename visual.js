@@ -1,5 +1,12 @@
 var notesToRender=[];
-var noteCounter = 0;
+var notesRendered = {
+	"YC Standard SAFE":0,
+	"YC Standard Note":0,
+	"YCVC SAFE":0,
+	"Post money SAFE":0
+}
+
+
 // render a single input field based on: noteName, noteField, noteID
 class FieldItem extends React.Component{
 	render(){
@@ -15,6 +22,9 @@ class FieldItem extends React.Component{
 
 // render a single note item based on: noteName, noteFields, noteIDs
 class NoteItem extends React.Component{
+
+	// increment counter
+
 	constructor(props) {
 		super(props);
 		this.state ={display:true};
@@ -38,8 +48,10 @@ class NoteItem extends React.Component{
 	  		</div>
 		);
 		if(display){
+			notesRendered[noteName] += 1;
+			console.log(notesRendered[noteName]);
 			return(
-				<article id={this.props.noteName} className="convNote" key={noteName.toString()}>
+				<article id={this.props.noteName.replace(/ /g,'')+notesRendered[noteName]} className="convNote" key={noteName.toString()}>
 	    			<div className="articleTitle">
 						<h1>{this.props.noteName}</h1>
 						<button className="delete" onClick={this.handleClick}><img src="close.svg"/></button>
@@ -50,6 +62,7 @@ class NoteItem extends React.Component{
 	    			</form>
 	    		</article>
 			);
+
 		}
 		else{
 			return(
@@ -84,6 +97,10 @@ $('#addNewNote').on('input', function() {
 	// console.log(noteData[selectedNote])
 	ReactDOM.render(<NoteList notesToRender={notesToRender}/> ,document.getElementById('insertNotesHere'));
 	$("#addNewNote").val("Add a new convertible note");
+
+	// Reset note ID counter
+	notesRendered["YC Standard SAFE"]=0;
+
 
 	// Call functions from main.js
 	$.getScript("main.js", function() {
