@@ -1,5 +1,5 @@
 var notesToRender=[];
-
+var noteCounter = 0;
 // render a single input field based on: noteName, noteField, noteID
 class FieldItem extends React.Component{
 	render(){
@@ -63,11 +63,12 @@ class NoteItem extends React.Component{
 class NoteList extends React.Component {
   render() {
   	const notesToRender = this.props.notesToRender;
-  	const listOfNotes = notesToRender.map((note) =>
-  		<div key={note.toString()}>
+  	const listOfNotes = notesToRender.map((note,index) =>
+  		<div key={note.toString()+index}>
   			<NoteItem noteName={note}/>
   		</div>
   	);
+  	
     return( 
     	<div>{listOfNotes}</div>
     );
@@ -94,8 +95,8 @@ $('#addNewNote').on('input', function() {
 
 
 // make delete work for existing note
-$('.delete').click(function(){
-	$('.delete').parent().parent().remove()
+$('.deletethis').click(function(){
+	$('.deletethis').parent().parent().remove()
 });
 
 
