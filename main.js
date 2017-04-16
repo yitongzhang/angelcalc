@@ -17,7 +17,11 @@ function calcNoteArray() {
   noteArray = new Array();
   //Identifying through class convNote
   $(".convNote").each(function () { 
-      var vals = {price: 0, 
+      var vals = {yourInvestment: 0,
+                  totInvestment: 0,
+                  noteDiscount: 0,
+                  noteCap: 0,
+                  price: 0, 
                   shares: 0, 
                   percentage: 0,
                   yourShares: 0,
@@ -37,12 +41,6 @@ function calc_table() {
   fdPreShares = parseInput($('input[name="fdPreShares"]'));
   unallocOptionShares = parseInput($('input[name="unallocOptionShares"]'));
 
-  // Define note variables
-  yourInvestment_note = parseInput($('input[name="yourInvestment_note"]'));
-  totInvestment_note = parseInput($('input[name="totalInvestment_note"]'));
-  noteDiscount = parseInput($('input[name="noteDiscount"]')) / 100;
-  noteCap = parseInput($('input[name="noteCap"]'));
-
   // Compute Variables
   // this might be a problem with calculation down the line...
   commonShares = (fdPreShares - unallocOptionShares) || 0;
@@ -60,6 +58,13 @@ function calc_table() {
   // calculate the PPS, shares, percentage and total shares of all converted notes for each note we have present
   totNoteShares = 0;
   for (var i=0; i < noteArray.length; i++) {
+    // Define note variables
+    noteArray[i].yourInvestment = parseInput($('input[name="yourInvestment_note"]'));
+    noteArray[i].totInvestment = parseInput($('input[name="totalInvestment_note"]'));
+    noteArray[i].noteDiscount = parseInput($('input[name="noteDiscount"]')) / 100;
+    noteArray[i].noteCap = parseInput($('input[name="noteCap"]'));
+
+    // Calculating the info for each note
     noteArray[i].price = Math.min(calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount), calc_notePPS_discount(PPS_VC, noteDiscount));
     noteArray[i].shares = calc_SharesPPS(totInvestment_note, noteArray[i].price);
     noteArray[i].percentage = calc_percentage(fdPostShares, noteArray[i].shares);
