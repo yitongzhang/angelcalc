@@ -191,16 +191,22 @@ function update_tables() {
   $('.sharesSituation .vcRow .shares').html(numberFormat(parseFloat(vcShares).toFixed(0)));
   $('.sharesSituation .vcRow .percentage').html(numberFormat(parseFloat(vcPercent).toFixed(2)));
 
-  // SAFE Shares
-  $('.sharesSituation .safeRow .priceShare').html(numberFormat(parseFloat(PPS_note).toFixed(2)));
-  $('.sharesSituation .safeRow .shares').html(numberFormat(parseFloat(totNoteShares).toFixed(0)));
-  $('.sharesSituation .safeRow .percentage').html(numberFormat(parseFloat(totNotePercent).toFixed(2)));
+  // Your VC Shares
+  $('.sharesSituation .yourPortionVC .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
+  $('.sharesSituation .yourPortionVC .shares').html(numberFormat(parseFloat(yourShares_VC).toFixed(0)));
+  $('.sharesSituation .yourPortionVC .percentage').html(numberFormat(parseFloat(yourPercentage_VC).toFixed(2)));
 
-  // Your SAFE Shares
-  $('.sharesSituation .yourPortionSafe .priceShare').html(numberFormat(parseFloat(PPS_note).toFixed(2)));
-  $('.sharesSituation .yourPortionSafe .shares').html(numberFormat(parseFloat(noteArray[0].yourShares).toFixed(0)));
-  $('.sharesSituation .yourPortionSafe .percentage').html(numberFormat(parseFloat(noteArray[0].yourPercentage).toFixed(2)));
+  for (var i=0; i < noteArray.length; i++) {
+    // SAFE Shares
+    $('#safeYCStandardSAFE'+(i+1)+'Row .priceShare').html(numberFormat(parseFloat(noteArray[i].price).toFixed(2)));
+    $('#safeYCStandardSAFE'+(i+1)+'Row .shares').html(numberFormat(parseFloat(noteArray[i].shares).toFixed(0)));
+    $('#safeYCStandardSAFE'+(i+1)+'Row .percentage').html(numberFormat(parseFloat(noteArray[i].percentage).toFixed(2)));
 
+    // Your SAFE Shares
+    $('#yourSafeYCStandardSAFE'+(i+1)+'Row .priceShare').html(numberFormat(parseFloat(noteArray[i].price).toFixed(2)));
+    $('#yourSafeYCStandardSAFE'+(i+1)+'Row .shares').html(numberFormat(parseFloat(noteArray[i].yourShares).toFixed(0)));
+    $('#yourSafeYCStandardSAFE'+(i+1)+'Row .percentage').html(numberFormat(parseFloat(noteArray[i].yourPercentage).toFixed(2)));    
+  }
 }
 
 // Non Core Functions ---------------------------------------------------------

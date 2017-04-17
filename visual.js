@@ -120,4 +120,8 @@ $('#addNewNote').on('click', function() {
 	// 	addNumberFormatting();
 	// });
 
+	console.log('last element:' + noteList[noteList.length - 1])
+	// Create table
+	$('#resultsTable tr:last').after('<tr id="safe'+noteList[noteList.length - 1]+'Row"><td class="rowHead">'+noteList[noteList.length - 1]+'</td><td class="priceShare">0.00</td><td class="shares">0</td><td class="percentage">0.0</td></tr><tr id="yourSafe'+noteList[noteList.length - 1]+'Row"><td class="rowHead">You-'+noteList[noteList.length - 1]+'</td><td class="priceShare">0.00</td><td class="shares">0</td><td class="percentage">0.0</td></tr>');
+
 });
