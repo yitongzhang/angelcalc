@@ -1,4 +1,4 @@
-// // Define Global Variables from calc_table
+// Define Global Variables from calc_table
 window.onload = function onload() {
   optionShares = 0;
   totNoteShares = 0; 
@@ -51,10 +51,6 @@ function calc_table() {
   postValuation = valuation;
 
   PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
-  // PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount); // PPS = price per share
-  // PPS_noteDiscount = calc_notePPS_discount(PPS_VC, noteDiscount);
-  // PPS_note = Math.min(PPS_note, PPS_noteDiscount);
-
   vcShares = calc_SharesPPS(totInvestment_VC, PPS_VC);
   fdPostShares = (commonShares + vcShares + totNoteShares + optionShares) || 0;
 
@@ -175,7 +171,6 @@ function update_tables() {
   $('.optionShares .updateValue').html(numberFormat(parseFloat(optionShares).toFixed(0)));
   $('.sharePriceCom .updateValue').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   
-  // Input sharesSituation
   // Common Shares
   $('.sharesSituation .commonRow .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   $('.sharesSituation .commonRow .shares').html(numberFormat(parseFloat(commonShares).toFixed(0)));
@@ -196,6 +191,7 @@ function update_tables() {
   $('.sharesSituation .yourPortionVC .shares').html(numberFormat(parseFloat(yourShares_VC).toFixed(0)));
   $('.sharesSituation .yourPortionVC .percentage').html(numberFormat(parseFloat(yourPercentage_VC).toFixed(2)));
 
+  // iternate through each SAFE
   for (var i=0; i < noteArray.length; i++) {
     // SAFE Shares
     $('#safeYCStandardSAFE'+(i+1)+'Row .priceShare').html(numberFormat(parseFloat(noteArray[i].price).toFixed(2)));
