@@ -6,7 +6,7 @@ window.onload = function onload() {
   vcShares = 0;
   i = 0;
 
-  console.log('initial optionShares: ' + optionShares);
+  // console.log('initial optionShares: ' + optionShares);
   calc_table();
   addNumberFormatting();
 }
@@ -33,7 +33,7 @@ function createNoteArray(noteList) {
   }
 
   //Identifying through class convNote
-  console.log(noteArray);
+  // console.log(noteArray);
 }
 
 function calc_table() {
@@ -228,7 +228,7 @@ function removeComma(x) {
 
 function lightUpOutput(){
   $('.outputFields td').css('opacity',"1");
-  console.log()
+  // console.log()
 }
 
 // add comma at every three 0's
