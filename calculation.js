@@ -13,25 +13,28 @@ window.onload = function onload() {
 
 // Create a new object and push into Array for each note that is detected
 var noteArray = new Array();
-function calcNoteArray() {
+function createNoteArray(noteList) {
   noteArray = new Array();
+  for (var i=0; i < noteList.length; i++) {
+    // console.log(noteList[i])
+    $('#'+noteList[i]).each(function () { 
+        var vals = {noteID: noteList[i],
+                    yourInvestment: 0,
+                    totInvestment: 0,
+                    noteDiscount: 0,
+                    noteCap: 0,
+                    price: 0, 
+                    shares: 0, 
+                    percentage: 0,
+                    yourShares: 0,
+                    yourPercentage: 0};
+        noteArray.push(vals)
+    })
+  }
+
   //Identifying through class convNote
-  $(".convNote").each(function () { 
-      var vals = {yourInvestment: 0,
-                  totInvestment: 0,
-                  noteDiscount: 0,
-                  noteCap: 0,
-                  price: 0, 
-                  shares: 0, 
-                  percentage: 0,
-                  yourShares: 0,
-                  yourPercentage: 0};
-      noteArray.push(vals)
-  })
   console.log(noteArray);
 }
-
-calcNoteArray();
 
 function calc_table() {
   yourInvestment_VC = parseInput($('input[name="yourInvestment_VC"]'));
@@ -48,9 +51,9 @@ function calc_table() {
   postValuation = valuation;
 
   PPS_VC = calc_vcPPS(preValuation, fdPreShares, unallocOptionShares, optionShares, totNoteShares);
-  PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount); // PPS = price per share
-  PPS_noteDiscount = calc_notePPS_discount(PPS_VC, noteDiscount);
-  PPS_note = Math.min(PPS_note, PPS_noteDiscount);
+  // PPS_note = calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount); // PPS = price per share
+  // PPS_noteDiscount = calc_notePPS_discount(PPS_VC, noteDiscount);
+  // PPS_note = Math.min(PPS_note, PPS_noteDiscount);
 
   vcShares = calc_SharesPPS(totInvestment_VC, PPS_VC);
   fdPostShares = (commonShares + vcShares + totNoteShares + optionShares) || 0;
@@ -59,16 +62,16 @@ function calc_table() {
   totNoteShares = 0;
   for (var i=0; i < noteArray.length; i++) {
     // Define note variables
-    noteArray[i].yourInvestment = parseInput($('input[name="yourInvestment_note"]'));
-    noteArray[i].totInvestment = parseInput($('input[name="totalInvestment_note"]'));
-    noteArray[i].noteDiscount = parseInput($('input[name="noteDiscount"]')) / 100;
-    noteArray[i].noteCap = parseInput($('input[name="noteCap"]'));
+    noteArray[i].yourInvestment = parseInput($('#YCStandardSAFE'+(i+1)+' input[name="YCSAFE_yourInvestment_note"]'));
+    noteArray[i].totInvestment = parseInput($('#YCStandardSAFE'+(i+1)+' input[name="YCSAFE_totalInvestment_note"]'));
+    noteArray[i].noteDiscount = parseInput($('#YCStandardSAFE'+(i+1)+' input[name="YCSAFE_noteDiscount"]')) / 100;
+    noteArray[i].noteCap = parseInput($('#YCStandardSAFE'+(i+1)+' input[name="YCSAFE_noteCap"]'));
 
     // Calculating the info for each note
-    noteArray[i].price = Math.min(calc_notePPS(noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteDiscount), calc_notePPS_discount(PPS_VC, noteDiscount));
+    noteArray[i].price = Math.min(calc_notePPS(noteArray[i].noteCap, fdPreShares, unallocOptionShares, optionShares, PPS_VC, noteArray[i].noteDiscount), calc_notePPS_discount(PPS_VC, noteArray[i].noteDiscount));
     noteArray[i].shares = calc_SharesPPS(noteArray[i].totInvestment, noteArray[i].price);
     noteArray[i].percentage = calc_percentage(fdPostShares, noteArray[i].shares);
-    noteArray[i].yourShares = calc_SharesPPS(yourInvestment_note, noteArray[i].price);
+    noteArray[i].yourShares = calc_SharesPPS(noteArray[i].yourInvestment, noteArray[i].price);
     noteArray[i].yourPercentage = calc_percentage(fdPostShares, noteArray[i].yourShares);
 
     totNoteShares += noteArray[i].shares;

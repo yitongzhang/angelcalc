@@ -5,7 +5,7 @@ var notesRendered = {
 	"YCVC SAFE":0,
 	"Post money SAFE":0
 }
-
+var noteList=[];
 
 // render a single input field based on: noteName, noteField, noteID
 class FieldItem extends React.Component{
@@ -47,9 +47,19 @@ class NoteItem extends React.Component{
 	  			<FieldItem noteID={field} noteField={noteFields[index]}/>
 	  		</div>
 		);
+
 		if(display){
+			// noteList = [];
 			notesRendered[noteName] += 1;
-			console.log(notesRendered[noteName]);
+			// console.log(notesRendered[noteName]);
+			var noteArrayID = this.props.noteName.replace(/ /g,'')+notesRendered[noteName];
+			if (noteList.indexOf(noteArrayID) == -1) {
+				noteList.push(noteArrayID);
+	    }
+			$.getScript("calculation.js", function() {
+				createNoteArray(noteList);
+				addNumberFormatting();
+			});
 			return(
 				<article id={this.props.noteName.replace(/ /g,'')+notesRendered[noteName]} className="convNote" key={noteName.toString()}>
 	    			<div className="articleTitle">
@@ -89,7 +99,6 @@ class NoteList extends React.Component {
 }
 
 $('#addNewNote').on('click', function() {
-
 	// // Uncomment the following to render different notes
 	// var selectedNote = $("#addNewNote option:selected").val();
 	// notesToRender.push(selectedNote);
@@ -104,11 +113,11 @@ $('#addNewNote').on('click', function() {
 	// Reset note ID counter
 	notesRendered["YC Standard SAFE"]=0;
 
-	// Call functions from main.js
-	$.getScript("main.js", function() {
-		calcNoteArray();
-		addNumberFormatting();
-	});
+	// console.log(noteList);
+	// Call functions from calculation.js
+	// $.getScript("calculation.js", function() {
+	// 	createNoteArray();
+	// 	addNumberFormatting();
+	// });
 
 });
-
