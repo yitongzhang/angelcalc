@@ -4,7 +4,7 @@ html {
   box-sizing: border-box;
 }
 body {
-  font-size: 1.5em; 
+  font-size: 1.4em; 
   line-height: 1.6;
   font-weight: 400;
   font-family: "Tisa Pro", serif;
@@ -13,7 +13,7 @@ body {
 
 h1{
   font-family: "Tisa Pro", serif;
-  font-size: 2em;
+  font-size: 1.9em;
   line-height: 1;
   display: inline-block;
 }
@@ -42,6 +42,7 @@ html{
   color: white;
   padding:3%;
   display: flex;
+  width: 100%;
 }
 
 .outputFields td{
@@ -96,7 +97,7 @@ article{
 }
 
 .inputFieldItem {
-  max-width: 220px;
+  max-width: 167px;
 }
 
 .inputFieldItem label{
@@ -113,7 +114,7 @@ article{
   background-color: #FAFAF5;
   max-width: 95%;
   font-family: "Tisa Pro", serif;
-  font-size: 2em;
+  font-size: 1.9em;
   /*border-top: solid 2px #222;*/
   position:relative;
 }
@@ -138,7 +139,7 @@ select{
   outline: none;
   border: 0;
   font-family: "Tisa Pro", serif;
-  font-size: 2em;
+  font-size: 1.9em;
   padding-left: 0;
   margin: 2% 0;
   opacity: 0.2;
@@ -155,7 +156,7 @@ select:hover{
 
 button{
   display: inline-block;
-  background-color:  #FAFAF5;
+  background-color: #FAFAF5;
   padding:0px;
   border:0;
   margin: 0 0 0px 8px;
@@ -176,4 +177,16 @@ button:focus{
   outline: none;
   background-color: #EEE;
 }
+
+#addNewNote{
+  font-family: "Tisa Pro", serif;
+  font-size: 1.9em;
+  padding-left: 0;
+  margin: 2% 0;
+}
+
+#addNewNote:focus{
+  background-color: #FAFAF5;
+}
+
 
