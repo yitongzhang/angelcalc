@@ -229,7 +229,15 @@ function lightUpOutput(){
 
 // add comma at every three 0's
 function numberFormat(x){
-  var parts = x.toString().split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return parts.join(".");
+  // console.log(x)
+  // console.log(typeof(x))
+  if (x == "NaN") {
+    console.log("NaN!")
+    return "n/a"
+  }
+  else{
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  }
 }

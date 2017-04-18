@@ -53,7 +53,7 @@ class NoteItem extends React.Component{
 		if(display){
 			notesRendered[noteName] += 1;
 			var noteArrayID = this.props.noteName.replace(/ /g,'')+notesRendered[noteName];
-			var humanNoteArrayID = this.props.noteName + notesRendered[noteName];
+			var humanNoteArrayID = this.props.noteName +" "+ notesRendered[noteName];
 			if (noteList.indexOf(noteArrayID) == -1) {
 				noteList.push(noteArrayID);
 				humanNoteList.push(humanNoteArrayID);
