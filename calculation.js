@@ -232,7 +232,6 @@ function numberFormat(x){
   // console.log(x)
   // console.log(typeof(x))
   if (x == "NaN") {
-    console.log("NaN!")
     return "n/a"
   }
   else{
