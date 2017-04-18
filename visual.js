@@ -6,7 +6,7 @@ var notesRendered = {
 	"Post money SAFE":0
 }
 var noteList=[];
-
+var humanNoteList =[];
 // render a single input field based on: noteName, noteField, noteID
 class FieldItem extends React.Component{
 	render(){
@@ -41,6 +41,8 @@ class NoteItem extends React.Component{
 		const noteName = this.props.noteName;
 		const noteFields = noteData[noteName].fields;
 		const noteIds = noteData[noteName].fieldId;
+		const noteNumber = this.props.noteNumber;
+		const humanNoteNumber = noteNumber+1
 
 		const listOfInputs = noteIds.map((field, index)=>
 	  		<div key={field.toString()}>
@@ -49,13 +51,13 @@ class NoteItem extends React.Component{
 		);
 
 		if(display){
-			// noteList = [];
 			notesRendered[noteName] += 1;
-			// console.log(notesRendered[noteName]);
 			var noteArrayID = this.props.noteName.replace(/ /g,'')+notesRendered[noteName];
+			var humanNoteArrayID = this.props.noteName + notesRendered[noteName];
 			if (noteList.indexOf(noteArrayID) == -1) {
 				noteList.push(noteArrayID);
-	    }
+				humanNoteList.push(humanNoteArrayID);
+	    	}
 			$.getScript("calculation.js", function() {
 				createNoteArray(noteList);
 				addNumberFormatting();
@@ -63,7 +65,7 @@ class NoteItem extends React.Component{
 			return(
 				<article id={this.props.noteName.replace(/ /g,'')+notesRendered[noteName]} className="convNote" key={noteName.toString()}>
 	    			<div className="articleTitle">
-						<h1>{this.props.noteName}</h1>
+						<h1>{noteName +" "+ humanNoteNumber}</h1>
 						<button className="delete" onClick={this.handleClick}><img src="close.svg"/></button>
 						<h2>Input the note data here.</h2>
 	    			</div>
@@ -88,7 +90,7 @@ class NoteList extends React.Component {
   	const notesToRender = this.props.notesToRender;
   	const listOfNotes = notesToRender.map((note,index) =>
   		<div key={note.toString()+index}>
-  			<NoteItem noteName={note}/>
+  			<NoteItem noteName={note} noteNumber={index}/>
   		</div>
   	);
   	
@@ -118,6 +120,6 @@ $('#addNewNote').on('click', function() {
 	// =========================================================================
 	console.log('last element:' + noteList[noteList.length - 1])
 	// Create table
-	$('#resultsTable tr:last').after('<tr id="safe'+noteList[noteList.length - 1]+'Row"><td class="rowHead">'+noteList[noteList.length - 1]+'</td><td class="priceShare">0.00</td><td class="shares">0</td><td class="percentage">0.0</td></tr><tr id="yourSafe'+noteList[noteList.length - 1]+'Row"><td class="rowHead">You-'+noteList[noteList.length - 1]+'</td><td class="priceShare">0.00</td><td class="shares">0</td><td class="percentage">0.0</td></tr>');
+	$('#resultsTable tr:last').after('<tr id="safe'+noteList[noteList.length - 1]+'Row"><td class="rowHead">'+humanNoteList[humanNoteList.length - 1]+'</td><td class="priceShare">0.00</td><td class="shares">0</td><td class="percentage">0.0</td></tr><tr id="You-'+noteList[noteList.length - 1]+'Row"><td class="rowHead">Your '+humanNoteList[humanNoteList.length - 1]+'</td><td class="priceShare">0.00</td><td class="shares">0</td><td class="percentage">0.0</td></tr>');
 
 })
