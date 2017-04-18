@@ -106,7 +106,7 @@
 	}
 	.inputFieldItem {
 	  width: 100%;
-	  max-width: 750px;
+	  max-width: 100%;
 	  margin-bottom: 10px;
 	  margin-top: 10px;	
 	}
@@ -115,7 +115,7 @@
 	  background-color: #FAFAF5;
 	  width: 100%;
 	  font-family: "Tisa Pro", serif;
-	  font-size: 2em;
+	  font-size: 1.5em;
 	  position:relative;
 	}
 	.inputFieldItem .line{
@@ -126,21 +126,21 @@
 
 	h1{
 	  font-family: "Tisa Pro", serif;
-	  font-size: 2.2em;
+	  font-size: 2em;
 	  line-height: 1;
 	}
 
 	h2{
 	  font-family: "freight-sans-pro";
 	  font-weight: 500;
-	  font-size: 1.2em;
+	  font-size: 0.9em;
 	  color: #5B5B5B;
 	  line-height: 1.1;
 	}
 
 	.outputFields td{
 	  font-family: "Tisa Pro", serif;
-	  font-size: 1.8em;
+	  font-size: 1.5em;
 	  padding-right:20px;
 	  opacity: 0.05;
 	  text-align: right;
@@ -159,12 +159,12 @@
 	}
 
 	.rowHead{
-		min-width: 230px;
+		min-width: 154px;
 	}
 
 	.inputFieldItem label{
 	  font-family: "freight-sans-pro";
-	  font-size: 1.2em;
+	  font-size: 1em;
 	  line-height: 1;
 	}
 
@@ -191,7 +191,7 @@
 	}
 	#addNewNote{
 	  font-family: "Tisa Pro", serif;
-	  font-size: 2.5em;
+	  font-size: 2em;
 	  padding-left: 0;
 	  margin: 2% 0;
 	}
