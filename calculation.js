@@ -169,39 +169,39 @@ function update_tables() {
   $('.postVal .updateValue').html(numberFormat(parseFloat(postValuation).toFixed(2)));
   $('.fdPostShares .updateValue').html(numberFormat(parseFloat(fdPostShares).toFixed(0)));
   $('.optionShares .updateValue').html(numberFormat(parseFloat(optionShares).toFixed(0)));
-  $('.sharePriceCom .updateValue').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
+  $('.sharePriceCom .updateValue').html(toPercent(numberFormat(parseFloat(PPS_VC))).toFixed(2));
   
   // Common Shares
   $('.sharesSituation .commonRow .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   $('.sharesSituation .commonRow .shares').html(numberFormat(parseFloat(commonShares).toFixed(0)));
-  $('.sharesSituation .commonRow .percentage').html(numberFormat(parseFloat(commonPercent).toFixed(2)));
+  $('.sharesSituation .commonRow .percentage').html(toPercent(numberFormat(parseFloat(commonPercent))).toFixed(2));
 
   // Option Pool
   $('.sharesSituation .optionpoolRow .priceShare').html(numberFormat(parseFloat('N/A').toFixed(0)));
   $('.sharesSituation .optionpoolRow .shares').html(numberFormat(parseFloat(optionShares).toFixed(0)));
-  $('.sharesSituation .optionpoolRow .percentage').html(numberFormat(parseFloat(optionPercent).toFixed(2)));
+  $('.sharesSituation .optionpoolRow .percentage').html(toPercent(numberFormat(parseFloat(optionPercent))).toFixed(2));
 
   // VC Shares
   $('.sharesSituation .vcRow .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   $('.sharesSituation .vcRow .shares').html(numberFormat(parseFloat(vcShares).toFixed(0)));
-  $('.sharesSituation .vcRow .percentage').html(numberFormat(parseFloat(vcPercent).toFixed(2)));
+  $('.sharesSituation .vcRow .percentage').html(toPercent(numberFormat(parseFloat(vcPercent))).toFixed(2));
 
   // Your VC Shares
   $('.sharesSituation .yourPortionVC .priceShare').html(numberFormat(parseFloat(PPS_VC).toFixed(2)));
   $('.sharesSituation .yourPortionVC .shares').html(numberFormat(parseFloat(yourShares_VC).toFixed(0)));
-  $('.sharesSituation .yourPortionVC .percentage').html(numberFormat(parseFloat(yourPercentage_VC).toFixed(2)));
+  $('.sharesSituation .yourPortionVC .percentage').html(toPercent(numberFormat(parseFloat(yourPercentage_VC))).toFixed(2));
 
   // iternate through each SAFE
   for (var i=0; i < noteArray.length; i++) {
     // SAFE Shares
     $('#safeYCStandardSAFE'+(i+1)+'Row .priceShare').html(numberFormat(parseFloat(noteArray[i].price).toFixed(2)));
     $('#safeYCStandardSAFE'+(i+1)+'Row .shares').html(numberFormat(parseFloat(noteArray[i].shares).toFixed(0)));
-    $('#safeYCStandardSAFE'+(i+1)+'Row .percentage').html(numberFormat(parseFloat(noteArray[i].percentage).toFixed(2)));
+    $('#safeYCStandardSAFE'+(i+1)+'Row .percentage').html(toPercent(numberFormat(parseFloat(noteArray[i].percentage))).toFixed(2));
 
     // Your SAFE Shares
     $('#yourSafeYCStandardSAFE'+(i+1)+'Row .priceShare').html(numberFormat(parseFloat(noteArray[i].price).toFixed(2)));
     $('#yourSafeYCStandardSAFE'+(i+1)+'Row .shares').html(numberFormat(parseFloat(noteArray[i].yourShares).toFixed(0)));
-    $('#yourSafeYCStandardSAFE'+(i+1)+'Row .percentage').html(numberFormat(parseFloat(noteArray[i].yourPercentage).toFixed(2)));    
+    $('#yourSafeYCStandardSAFE'+(i+1)+'Row .percentage').html(toPercent(numberFormat(parseFloat(noteArray[i].yourPercentage))).toFixed(2));    
   }
 }
 
@@ -239,4 +239,8 @@ function numberFormat(x){
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
   }
+}
+
+function toPercent(x) {
+  return x * 100;
 }
